@@ -31,17 +31,18 @@ To this end,  I am leaning leaving the last chunk of the workshop  open for stud
 That said,  along the way,  we could also potentially try to encourage student involvement via discussions and active-learning components embedded within the material,  e.g.
 
 \begin{itemize}
-
+\item Mini reading group discussions  -- They might not have time to read a whole paper,  but I could assign sections of a paper,  or sections of a text, that we discuss at the very beginning.
 \item Student ``lightning chat" (10 minute) presentations?  Could do one per student per workshop.  These could consist of students choosing any of the following:
 	\begin{itemize}
 	\item Presentation of Python implementations of models from \cite{hoff2009first} ,  \cite{ gelman2013bayesian},  or the workshop.
-	\item Presentation of an exercise from \cite{gelman2013bayesian}.
+	\item Presentation of an exercise from \cite{gelman2013bayesian} or \cite{hoff2009first}.
 	\item Presentation of a reading section,  blog,  etc.  of interest.
 	\item Presentation of a mathematical derivation of something relevant to the course.
+	\item Presentation of how a concept relates to something from their research area.
 	\item Presentation of mid-progress on their student project.
+	\item A list of questions that we can discuss.
 	\end{itemize}
 \item Real-time python applications lab -- Google Collab exercises ?  Python (rather than R) implementations of \cite{hoff2009first} and \cite{gelman2013bayesian} ?  Progress on their project?  Etc.
-\item Mini reading group discussions 
 \end{itemize}
 
 
@@ -99,9 +100,15 @@ Here we discuss models which have additional complexity -- they could involve ne
 \subsection{Bayesian workflow}  \label{sec:Bayesian workflow}
 
 
-Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.  Section 6 of \cite{gelman2013bayesian} covers model checking.       
+Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking.       
 
 We could cover this the day before the student projects -- which should help them as they wrap up their projects -- and leave lots of time/space for workshopping. 
+
+Some points to make re: model checking
+
+\begin{itemize}
+\item \textit{Samples from the posterior predictive should capture important properties of the observed dataset.}  For a violation of this,  see the normal model for Newcomb's speed of light measurements.  (Compare Figures 6.2 and 3.1 of \cite{gelman2013bayesian}.)
+\end{itemize}
 
 \subsection{Student project presentations}
 
