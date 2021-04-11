@@ -64,7 +64,7 @@ We present everything in here using conjugate models with closed-form posteriors
 Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
 
 \begin{itemize}
-\item \textbf{Why Bayes?} -- See Section 1.3 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
+\item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
 \item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice motivation.    Could perhaps cover exchangeability here. 
 \item \textbf{Binomial, Poisson, normal, multivariate normal models} -- Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first}.     Introduce the exponential family formalism \cite{wojnowiczXXXXexponential} for much greater breadth.   
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here (Section 9.3 of \cite{hoff2009first}. 
@@ -164,6 +164,15 @@ Examples:
 \item If batting averages are indeed heavy tailed or skewed,  move from a normal distribution to something else.   For example,  could try a t-distribution with Laplace inference to handle the non-conjugacy. 
 \item If the variance is indeed too high for a binomial model,  try something that can handle the overdispersion. 
 \end{itemize}
+
+\section{More detail on slides}
+
+\subsection{Why Bayes}
+
+\paragraph{Estimating the probability of a rare event}
+See Section 1.2.1 of \cite{hoff2009first}.  The problem is to estimate the proportion of people in a small town that have a disease given a small sample of 20 individuals.     This is a nice believable example in which prior information is natural: we use prevalence in similar towns.  (Make a note that really this is foreshadowing hierarchical models and hierarchical regressions!)  This also illustrates another nice property of Bayes  -- we can get lots of functionals from the posterior.  The plot on the right of Figure 1.1 -- showing the shift between the prior and posterior distributon -- is a classic.   The sensitivity analysis is pretty cool -- see the right hand plot of Figure 1.2,  as well as the last couple sentences on pp.7.    
+
+The REAL kicker,  I think,  is the comparison to non-Bayesian methods.  The frequentist confidence interval is complete garbage here,  and the ``adjusted" Wald interval is clearly just a (very specific) choice of .prior.   Nice opportunity for discussion here.  Ask:  what's the advantage of Bayes over that?  Possible answers: That is seemingly ad hoc; it's not felxible to other choice of priors; Bayes makes it clear how it relates to priors; and it doesn't allow for sensitivity analysis (or investigation of various functionals).  
 
 
 %\section{Need to do}
