@@ -16,11 +16,13 @@
 
 \section{Overview}
 
-\subsection{Goal}  The goal of this workshop is to introduce students to the concepts and practice of Bayesian modeling.  
-
+\subsection{Goal}  The goal of this workshop is to introduce students to the concepts and practice of Bayesian modeling.   We will begin by motivating Bayesian approaches.  Next,  we will introduce and apply models with conjugate priors,  such as Bayesian normal,  Bayesian binomial,  and Bayesian linear regression.   We will then introduce the two primary techniques for approximate Bayesian inference,  namely Markov Chain Monte Carlo (MCMC) and variational inference.    Using these techniques,  and in some cases clever trickery,  we will then tackle models for which there are not conjugate priors,  such as Bayesian logistic regression,  Bayesian multiclass regression,  Bayesian mixture models,  and Bayesian hidden Markov models.  Finally,  we will very briefly discuss Bayesian deep learning.    For applications,  we will use Python; namely,  a combination of  pymc3,  scikit-learn,  and code we write ourselves.  
+ 
+\subsection{Date and Time}  The workshop will be held via Zoom,  June 7-11,  from 2pm-5pm EST.   
+ 
 \subsection{Target Audience}  We expect that the typical student will be a graduate student, faculty member, staff member, or researcher in a quantitative field (such as computer science,  statistics,  engineering, or biology),  who would like to learn more about Bayesian modeling.  
 
-\subsection{Prerequisites} Prerequisites include calculus,  some linear algebra, and some familiarity with introductory probability (e.g.,  we will assume prior familiarity with concepts such as expectation,  conditional probability,  and commonly used distributions,  such as Gaussian and Poisson).    The class will use Python as a common language.    The workshop will employ student-centered components so \textbf{be prepared to spend 3-4 hours a day outside of the workshop working on material.}  This time will be spent on  background reading and preparing code/demos/materials for the interactive component of the workshop.
+\subsection{Prerequisites} Prerequisites include calculus,  some familiarity with introductory linear algebra (matrix multiplications,  determinants,  and traces),  and some familiarity with introductory probability (e.g.,  we will assume prior fluency with concepts such as expectation,  conditional probability,  and commonly used distributions,  such as Gaussian and Poisson).    The class will use Python as a common language.     The workshop will employ student-centered components;  for maximum benefits, we strongly encourage setting aside 1-2 hours per day outside of the workshop to work on material.    %The workshop will employ student-centered components so \textbf{be prepared to spend 3-4 hours a day outside of the workshop working on material.}  This time will be spent on  background reading and preparing code/demos/materials for the interactive component of the workshop.
 
 \subsection{Textbook}
 
@@ -65,10 +67,10 @@ Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
 
 \begin{itemize}
 \item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
-\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice motivation.    Could perhaps cover exchangeability here. 
-\item \textbf{Binomial, Poisson, normal, multivariate normal models} -- Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first}.     Introduce the exponential family formalism \cite{wojnowiczXXXXexponential} for much greater breadth.   
+\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
+\item \textbf{Introduction to inference}  Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.    Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first} covers binomial,  Poisson,  normal,  multivariate normal models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.     Section 11.2.2 of \cite{davison2003statistical} has a nice,  quick summary of Bayes factors for model comparison. 
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here (Section 9.3 of \cite{hoff2009first}. 
-\item \textbf{Bayesian workflow} -- Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking.       Some points to make re: model checking
+\item \textbf{Bayesian workflow} -- Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking,  as does  Section 11.2.3 of \cite{davison2003statistical}.    Some points to make re: model checking
 	\begin{itemize}
 	\item \textit{Samples from the posterior predictive should capture important properties of the observed dataset.}  For a violation of this,  see the normal model for Newcomb's speed of light measurements.  (Compare Figures 6.2 and 3.1 of \cite{gelman2013bayesian}.)
 	\end{itemize}
@@ -90,7 +92,7 @@ We introduce these methods,  which can be used for models without closed-form po
 Here are some models which are still fairly standard,  but lack conjugate priors,  and so inference typically requires VI or MCMC.     \blue{Karin: Where here,  or elsewhere,  would you like to illustrate applications of MCMC?}
 
 \begin{itemize}
-\item \textbf{Hierarchical models}  Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
+\item \textbf{Hierarchical models}  Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
 \item \textbf{Regression models for binary and multi-class data} Includes logistic regression, probit regression,  binomial,  multinomial,  etc.    Use this to cover additional inference techniques:  auxilliary variable trick and Laplace variational inference.    Show demo ``beating scikit-learn with variational inference."   See also pp.  390 of \cite{hoff2009first} for a useful warm-starting strategy.   Could generalize to Bayesian GLMs.   Could also cover or mention hierarchical extensions (i.e.  Bayesian GLMM's).   
 \item \textbf{Mixture models} I will give CAVI for Gaussian mixture models. 
 \item \textbf{Time series models}  Probably just hidden markov models,  although would be nice to also introduce state space models.    Could mention embedding of GLM's or GLMM's within them.   May give some overview to probabilistic graphical models here.  
@@ -135,13 +137,20 @@ Here are some models which are still fairly standard,  but lack conjugate priors
 
 \appendix
 
-\section{Resources which may be appropriate for mini-reading group or student presentations}
+\section{Resources which may be appropriate for mini-reading group or student mini-presentations}
 
+\subsection{Intro} 
 \begin{itemize}
-\item Intro: \textit{Why most published research findings are false. } \cite{ioannidis2005most}
-\item Model checking: Bayesian workflow.
+\item Present \textit{Why most published research findings are false. } \cite{ioannidis2005most}.
+\item Present Bayesian analysis of multiple sudden infant deaths.  \cite{hill2004multiple}.
 \item Textbook sections TBD. 
 \end{itemize}
+
+\subsection{Model Checking} 
+\begin{itemize}
+\item Textbook sections TBD. 
+\end{itemize}
+
 
 \section{Additional problems to work on}
 
@@ -165,14 +174,34 @@ Examples:
 \item If the variance is indeed too high for a binomial model,  try something that can handle the overdispersion. 
 \end{itemize}
 
-\section{More detail on slides}
+\section{Notes to self:  some details for when slides are constructed}
 
 \subsection{Why Bayes}
 
-\paragraph{Estimating the probability of a rare event}
+\paragraph{Bayes law in real life}
+The primary motivation here is the importance of not ``flipping the conditional" during interpretation.   Sally Clark was convicted of murdering her two children,  because the chance of two babies dying of SIDS in one family was one in 73m.   But the expert witness ignored the prior probability that someone was a double murderer \cite{guardianXXXXobscure}.  (See \cite{hill2004multiple} for discussion.)      Could also refer to the classic example with positive tests - maybe in reference to COVID \cite{guardianXXXXobscure}.     \textit{Why most published research findings are false} \cite{ioannidis2005most} provides a third example. 
+
+\paragraph{Modeling Application: Estimating the probability of a rare event}
 See Section 1.2.1 of \cite{hoff2009first}.  The problem is to estimate the proportion of people in a small town that have a disease given a small sample of 20 individuals.     This is a nice believable example in which prior information is natural: we use prevalence in similar towns.  (Make a note that really this is foreshadowing hierarchical models and hierarchical regressions!)  This also illustrates another nice property of Bayes  -- we can get lots of functionals from the posterior.  The plot on the right of Figure 1.1 -- showing the shift between the prior and posterior distributon -- is a classic.   The sensitivity analysis is pretty cool -- see the right hand plot of Figure 1.2,  as well as the last couple sentences on pp.7.    
 
-The REAL kicker,  I think,  is the comparison to non-Bayesian methods.  The frequentist confidence interval is complete garbage here,  and the ``adjusted" Wald interval is clearly just a (very specific) choice of .prior.   Nice opportunity for discussion here.  Ask:  what's the advantage of Bayes over that?  Possible answers: That is seemingly ad hoc; it's not felxible to other choice of priors; Bayes makes it clear how it relates to priors; and it doesn't allow for sensitivity analysis (or investigation of various functionals).  
+The REAL kicker,  I think,  is the comparison to non-Bayesian methods.  The frequentist confidence interval is complete garbage here,  and the ``adjusted" Wald interval is clearly just a (very specific) choice of .prior.   Nice opportunity for discussion here.  Ask:  what's the advantage of Bayes over that?  Possible answers: That is seemingly ad hoc; it's not flexible to other choice of priors; Bayes makes it clear how it relates to priors; and it doesn't allow for sensitivity analysis (or investigation of various functionals).  
+
+
+
+\subsection{Introduction to inference}
+
+\paragraph{Bayes factors}
+
+Very nice brief discussion in Section 11.2.2 of \cite{davison2003statistical}. 
+
+\subsection{Hierarchical models}
+
+Some motivations:  
+\begin{itemize}
+\item A way to use ``surrounding data" as a prior in a more formal way.    Think back to Hoff's disease prevalence example.    In that case,  we constructed our beta prior manually,  by taking a couple of basic facts about similar towns and then converting that into beta parameters.    A hierarchical model could let the prior expectation be tied more exactly to those surrounding towns (including, if a regression is involved,  similarity w.r.t. \text{relevant} characteristics,  such as size,  SES,  etc.),  to automatically set the strength of the prior expectation according to the relative uncertainty within and between towns,  and to automatically adapt as data rolls in. 
+\item Can be convenient.  Consider Wand's construction of the half-t distribution as a hierarchical model of inverse gammas,  which makes for a conditionally conjugate scheme.  Basically any auxilliary variable trick (think Polya Gamma augmentation) can be considered as the construction of a hierarchical model for computational convenience.  
+\item By adding layers to the hierarchy,  we can escape bad assumptions -- e.g.,  the beta-binomial model handles over-dispersion.   (This might be a better example for "why Bayes".)
+\end{itemize}
 
 
 %\section{Need to do}
