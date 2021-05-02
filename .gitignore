@@ -3,7 +3,9 @@
 *.bbl
 *.blg
 *.log
+*.nav
 *.out
+*.snm
 *.toc
 *.DS_Store
 

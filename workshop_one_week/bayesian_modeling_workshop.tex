@@ -68,8 +68,8 @@ Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
 \begin{itemize}
 \item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
 \item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
-\item \textbf{Introduction to inference}  Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.    Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first} covers binomial,  Poisson,  normal,  multivariate normal models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.     Section 11.2.2 of \cite{davison2003statistical} has a nice,  quick summary of Bayes factors for model comparison. 
-\item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here (Section 9.3 of \cite{hoff2009first}. 
+\item \textbf{Introduction to inference}  Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.    Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first} covers binomial,  Poisson,  normal,  multivariate normal models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.     
+\item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
 \item \textbf{Bayesian workflow} -- Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking,  as does  Section 11.2.3 of \cite{davison2003statistical}.    Some points to make re: model checking
 	\begin{itemize}
 	\item \textit{Samples from the posterior predictive should capture important properties of the observed dataset.}  For a violation of this,  see the normal model for Newcomb's speed of light measurements.  (Compare Figures 6.2 and 3.1 of \cite{gelman2013bayesian}.)
@@ -95,7 +95,7 @@ Here are some models which are still fairly standard,  but lack conjugate priors
 \item \textbf{Hierarchical models}  Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
 \item \textbf{Regression models for binary and multi-class data} Includes logistic regression, probit regression,  binomial,  multinomial,  etc.    Use this to cover additional inference techniques:  auxilliary variable trick and Laplace variational inference.    Show demo ``beating scikit-learn with variational inference."   See also pp.  390 of \cite{hoff2009first} for a useful warm-starting strategy.   Could generalize to Bayesian GLMs.   Could also cover or mention hierarchical extensions (i.e.  Bayesian GLMM's).   
 \item \textbf{Mixture models} I will give CAVI for Gaussian mixture models. 
-\item \textbf{Time series models}  Probably just hidden markov models,  although would be nice to also introduce state space models.    Could mention embedding of GLM's or GLMM's within them.   May give some overview to probabilistic graphical models here.  
+\item \textbf{Time series models}  Probably just hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}},  although would be nice to also introduce state space models.    Could mention embedding of GLM's or GLMM's within them.   May give some overview to probabilistic graphical models here.  
 \item \textbf{Bayesian Deep Learning}  Bayes and neural networks.   20-30 min w/ guest presenter,  Kyle Heuton,  Ph.D.  student,  computer science.
 \end{itemize}
 
@@ -151,8 +151,17 @@ Here are some models which are still fairly standard,  but lack conjugate priors
 \item Textbook sections TBD. 
 \end{itemize}
 
+\subsection{Missing data and imputation}
 
-\section{Additional problems to work on}
+\begin{itemize}
+\item  Inference with a Bayesian normal model in the presence of missing data is given,  in R code,  on pp. 119 of \cite{hoff2009first}.    Implement,  and test,  the code in Python.
+\end{itemize}
+
+
+
+\section{Mini projects}
+
+These are small,  open-ended problems to work on.
 
 \subsection{Batting average dataset}
 
@@ -193,6 +202,10 @@ The REAL kicker,  I think,  is the comparison to non-Bayesian methods.  The freq
 \paragraph{Bayes factors}
 
 Very nice brief discussion in Section 11.2.2 of \cite{davison2003statistical}. 
+
+\paragraph{Multivariate normal - missing data and imputation}
+
+See Section 7.5 of \cite{hoff2009first}.
 
 \subsection{Hierarchical models}
 

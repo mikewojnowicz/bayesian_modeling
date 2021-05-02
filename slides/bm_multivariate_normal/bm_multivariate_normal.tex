@@ -1,0 +1,149 @@
+
+%% Refer to latex document when possible
+\pdfoutput=1
+\documentclass[10pt]{beamer}
+
+%STANDARD PREAMBLE
+%https://tex.stackexchange.com/questions/68821/is-it-possible-to-create-a-latex-preamble-header
+\usepackage{/Users/mwojno01/Research/LabMeetings/beamer_preamble}
+
+
+\title{The Multivariate Normal Model}
+%\subtitle{}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Missing data and imputation}
+
+\begin{frame}{References}
+
+\begin{center}
+\includegraphics[width=.5\textwidth]{images/hoff_book}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Pima Dataset}
+
+\begin{figure}
+\includegraphics[width=.6\textwidth]{images/pima_scatterplots}
+\caption{  \footnotesize Univariate histograms and bivariate scatterplots for four variables taken from a dataset involving health-related measurements on 200 women of Pima Indian heritage living near Phoenix,  Arizona.  \scriptsize The four variables are \texttt{glu} (blood plasma glucose concentration),  \texttt{bp} (diastolic blood pressure),  \texttt{skin} (skin fold thickness),  and  \texttt{bmi} (body mass index).  }
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{Pima Dataset}
+
+\begin{figure}
+\includegraphics[width=.6\textwidth]{images/pima_first_ten_entries}
+\caption{  \footnotesize Entries for the first ten subjects in the dataset.  \scriptsize The \texttt{NA}'s stand for ``not available." }
+\end{figure}
+\end{frame}
+
+\begin{frame}{Description of problem}
+How to do parameter estimation in the presence of missing data? \\
+\begin{itemize}
+\item[]  \footnotesize  We cannot do parameter estimation,  because we cannot compute the likelihood $\prod_{i=1}^n p(\+y_i \cond \+\theta)$.  \normalsize
+\end{itemize}
+\vfill \vfill 
+Two common approaches taken by software packages:
+\begin{enumerate}
+\item Throw away all subjects with missing data
+\pause  \\
+\quad \redx \footnotesize Discards a potentially large amount of useful information.  \normalsize
+\pause \\
+\item  Impute the population mean or some other fixed value. 
+\pause \\
+\quad \redx \footnotesize  Assumes certainty about these values,  when in fact we have not observed them.  \normalsize
+% DELIVERY: Elicit audience suggestions as to the problems with each common approach.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Missing at random (MAR)}
+Let $\+O_i = (O_1, ..., O_p)^T$ be a binary vector such that
+\begin{itemize}
+\item $O_{ij} = 1 \implies  Y_{ij}  \; \text{is observed}$ 
+\item $O_{ij} = 0 \implies  Y_{ij}  \; \text{is missing}$ 
+\end{itemize}
+
+\vfill
+
+\begin{definition}
+We say the missing data are \textit{missing at random} if $\+O_i$ and $\+Y_i$ are conditionally independent given the model parameters  $\+\theta$  and the distribution of $\+O_i$ does not depend on $\+\theta$.
+% TODO: Check this definition;  I altered Hoff's to be more clear based on what seemed to be used in the upcoming formula.
+\end{definition}
+
+
+\vfill  \vfill \vfill  \pause 
+
+\scriptsize
+\textbf{Remark.}  This is one of the three types of missingness.   In gist:
+\begin{itemize}
+\item Missing completely at random (MCAR) - missingness is independent of all data
+\item Missing at random (MAR) - missingness is independent of observed data
+\item Missing not at random (MNAR) - missingness depends on missing values (and perhaps observed data)
+\end{itemize}
+% QUESTION: Does this characterization (grabbed from some slides) comport with the one I gave for MAR above? No mention of parameters here.   Perhaps the frequentist characterization differs form the Bayesian one?
+
+
+\end{frame}
+
+
+\begin{frame}{The likelihood in the presence of MAR data}
+
+When the data is missing at random,  the sampling probability (density) for the data from observational unit $i$ is given by
+
+\begin{align*}
+p(\+o_i,  \set{y_{ij} : o_{ij} =1} \cond \+\theta) & \stackrel{(1)}{=} p(\+o_i) \;  p(\set{y_{ij} : o_{ij} =1} \cond \+\theta) \\
+&=  p(\+o_i) \;  \ds\int p(y_{i1}, ...., y_{ip}  \cond \+\theta)  \prod_{y_{ij} : o_{ij} = 0} dy_{ij}
+\end{align*}
+\footnotesize where in (1) we applied the definition of MAR. \normalsize
+
+\vfill \vfill \pause
+
+\greencheck So in the presence of MAR data, the correct thing to do is \textit{integrate over} the missing data to obtain the marginal probability (density) of the observed data. 
+\end{frame}
+
+
+\begin{frame}{Utilization in multivariate normal models}
+
+
+In the case of multivariate normal models \footnotesize (so $\+\theta = (\+\mu, \+\Sigma)$) \normalsize, the integration is easy:  Multivariate normals have normal marginals. 
+
+\vfill \vfill \vfill 
+\begin{example}
+Suppose $\+y_i = (y_{i1},  \texttt{NA},  y_{i3},  \texttt{NA})^T$, so $\+o_i = (1,0,1,0)^T$.     
+
+Then
+
+\begin{align*}
+p(\+o_i,  y_{i1},  y_{i3} \cond \+\theta) & = p(\+o_i) \;  p(y_{i1},  y_{i3} \cond \+\theta) \\
+&=  p(\+o_i) \;  \ds\int p( \+y_i  \cond \+\theta)  \; dy_2 \; dy_4
+\end{align*}
+\vfill 
+
+The marginal density $p(y_{i1},  y_{i3} \cond \+\theta)$ is simply a bivariate normal density with mean $(\mu_1,  \mu_3)^T$ and covariance matrix made up of $(\sigma^2_1,  \sigma_{13},  \sigma^2_3)$.
+\end{example}
+
+\end{frame}
+
+\begin{frame}{\red{TODO}}
+
+\begin{itemize}
+\item Inference: Show how to adjust Gibbs sampling in the presence of missing data (see Hoff pp. 117-pp.118;  also make sure the notation,  and the use of semiconjugate vs conjugate prior,  aligns with how I set up the multivariate normal initially -- earlier on in this section of the course)
+\item Correlations - discuss how to construct the posterior correlation matrix from the Gibbs samples (and note this is another example of the Bayesian paradigm yielding unlimited access to posterior functionals of interest,  without doing any extra inferential work).    Show the specific values on pp.119,  and the left hand side of Fig 7.4.   This is good to show because it is something you'd probably want out of a normal model anyways,  and also becuase it is needed for the next point.
+\item Show true values vs posterior expectations of the missing data (Hoff Fig 7.5)   Mention that we get better predictions for skin and bmi,  due to their higher correlations.  Highlight how much better the posterior expectation is than a flat fixed value.
+\end{itemize}
+
+\end{frame}
+
+
+
+\end{document}
+
+
+
