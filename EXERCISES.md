@@ -1,4 +1,4 @@
-# Exercises
+# Exercises Page 
 
 ## Philosophy
 
@@ -13,7 +13,8 @@ Why have a lab as a part of the course, as opposed to just working on your own t
 * Get real-time feedback from instructors.
 
 
-## Schedule
+## Exercises 
 
+* [Intro to Bayesian Inference](https://colab.research.google.com/drive/1-hDJ7wrVanBuDluSUVYV-RVzmIu9H1WP)
 * [Bayesian Multivariate Normal](https://colab.research.google.com/drive/14gonFUtSGcn8G3pApOEu-5YIaGk0swUQ#scrollTo=wsNeq0W17gDt)
 * Others coming soon!
