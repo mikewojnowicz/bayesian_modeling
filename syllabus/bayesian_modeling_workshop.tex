@@ -79,13 +79,11 @@ Below are topics we plan to cover in the course:
 
 We present everything in here using conjugate models with closed-form posteriors.  The models are useful in and of themselves,  as well as to build intuition for more complicated models.   
 
-Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
-
 \begin{itemize}
 \item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
 \item \textbf{Introduction to inference} 
 	\begin{itemize}
-	\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
+	\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
 	\item \textbf{Single-parameter conjugate models} - Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.      Sections 3.1 and 3.2 of \cite{hoff2009first} cover the  binomial and Poisson models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.  
 	\item \textbf{Bayesian multivariate normal} -  Section 7 of \cite{hoff2009first} covers the  multivariate normal model.  The Bayesian MVN is a fundamental model in and of itself.  It also provides some nice opportunities: introducing the notion of semiconjugacy,  discussing imputation for missing data, and motivating Gibbs sampling.   Note that the Bayesian MVN can be either conjugate or semi-conjugate,  depending on the choice of prior.
 	\end{itemize}   
@@ -96,35 +94,37 @@ Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
 
 
 
-\subsection{Semi-conjugacy} \label{sec:semi_conjugacy}
+\subsection{Semi-conjugate models} \label{sec:semi_conjugacy}
+
+To do inference with semi-conjugate models, we need to introduce MCMC and VI.  These are the two primary methods for doing inference on Bayesian models without closed-form posteriors. In Section \ref{sec:non_conjugacy}, we will push these methods further to the non-conjugate case.
 
 \subsubsection{Methods}
 
-We introduce these methods for handling models without closed-form posteriors.  We practice applying them in the next subsection.  For now, we focus on semi-conjugate models.
-
 \begin{itemize}
-\item \textbf{Intro to sampling} - Basic sampling methods (inverse cdf,  rejection sampling) and introduction to Markov Chain Monte Carlo (MCMC) - Metropolis Hastings, Gibbs sampling.
-\item \textbf{Variational inference} - We will focus on coordinate ascent variational inference (CAVI) \cite{wojnowiczXXXXfoundations}.
+\item \textbf{Intro to MCMC sampling} - Basic sampling methods - inverse cdf,  rejection sampling. Basic Markov Chain Monte Carlo (MCMC) - Metropolis Hastings, Gibbs sampling.
+\item \textbf{Introduction to variational inference} - Coordinate ascent variational inference (CAVI) \cite{wojnowiczXXXXfoundations}.
 \end{itemize} 
 
 \subsubsection{Models}
-These models are often semi-conjugate, in which case inference typically requires MCMC (usually Gibbs sampling) or VI (usually coordinate ascent variational inference). 
+These models are often semi-conjugate, in which case inference prototypically proceeds via Gibbs sampling or CAVI. 
 
 \begin{itemize}
+\item \textbf{Mixture models} - Brief presentation of Gaussian mixture models; will occur alongside CAVI.
+\item \textbf{Hidden markov models} -   We will probably need to skip this -- or make it super fast -- in the interest of time.   But might give brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
-\item \textbf{Hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
-\item \textbf{Mixture models} - Brief presentation of Gaussian mixture models. Give CAVI.
-\item \textbf{Hidden markov models} -  Brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.  
+\item \textbf{Hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.  
 \end{itemize}
 
-\subsection{Non-conjugacy} \label{sec:non_conjugacy}
+\subsection{Non-conjugate models} \label{sec:non_conjugacy}
+
+Here, again, we use MCMC and VI, but we need to employ more advanced (or at least more general) techniques.
 
 \subsubsection{Methods}
 
 \begin{itemize}
 	\item \textbf{Gradient-based sampling} - A brief introduction to Hamiltonian Monte Carlo (HMC) and No U-Turn Sampler (NUTS).  Introduction to the python package \texttt{pymc3}.
 	\item \textbf{Model augmentation} - An auxilliary variable may be introduced to transform a non-conjugate model into one that is conjugate or semi-conjugate.
-	\item \textbf{Variational inference for non-conjugate models} - We will probably need to skip this in the interest of time.
+	\item \textbf{Variational inference for non-conjugate models} - We will probably need to skip this in the interest of time.  Common strategies are Laplace method VI,  Delta method VI, and automatic differentiation VI.
 \end{itemize}
 \subsubsection{Models}
 
