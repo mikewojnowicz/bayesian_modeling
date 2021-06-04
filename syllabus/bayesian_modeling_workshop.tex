@@ -75,20 +75,26 @@ Between 1/3-1/2 of the workshop will be interactive,  including:
 
 Below are topics we plan to cover in the course:
 
-\subsection{Introduction to Bayes}
+\subsection{Why Bayes?}
+
+We motivate the Bayesian approach.
+
+See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
+
+\subsection{Fully conjugate models}
 
 We present everything in here using conjugate models with closed-form posteriors.  The models are useful in and of themselves,  as well as to build intuition for more complicated models.   
 
-\begin{itemize}
-\item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
-\item \textbf{Introduction to inference} 
+\subsubsection{Methods}
 	\begin{itemize}
 	\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
-	\item \textbf{Single-parameter conjugate models} - Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.      Sections 3.1 and 3.2 of \cite{hoff2009first} cover the  binomial and Poisson models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.  
-	\item \textbf{Bayesian multivariate normal} -  Section 7 of \cite{hoff2009first} covers the  multivariate normal model.  The Bayesian MVN is a fundamental model in and of itself.  It also provides some nice opportunities: introducing the notion of semiconjugacy,  discussing imputation for missing data, and motivating Gibbs sampling.   Note that the Bayesian MVN can be either conjugate or semi-conjugate,  depending on the choice of prior.
+	\item \textbf{Exponential family techniques} - If time.  See \cite{wojnowiczXXXXexponential}.
+	\end{itemize}
+\subsubsection{Models}
+\begin{itemize}
+	\item \textbf{Single-parameter conjugate models} - Chapter 11.2 of \cite{davison2003statistical} has a nice very brief introduction to inference.      Sections 3.1 and 3.2 of \cite{hoff2009first} cover the  binomial and Poisson models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.  
+	\item \textbf{Bayesian multivariate normal} -  Here we introduce the Bayesian MVN, a fundamental model. In this section, we present the Bayesian MVN as a conjugate model, but note that it (like many other models) can also be semi-conjugate,  depending on the choice of prior.
 	\end{itemize}   
-
-\end{itemize}
 
 %We will want to find a way to get students to group up,  probably based on domain expertise/interests,  so that they can eventually work together on a project.  
 
@@ -106,13 +112,14 @@ To do inference with semi-conjugate models, we need to introduce MCMC and VI.  T
 \end{itemize} 
 
 \subsubsection{Models}
-These models are often semi-conjugate, in which case inference prototypically proceeds via Gibbs sampling or CAVI. 
+We provide semi-conjugate formulations of the following models.  With such formulations, inference prototypically proceeds via Gibbs sampling or CAVI. 
 
 \begin{itemize}
+	\item \textbf{Bayesian multivariate normal} -  The Bayesian MVN can be semi-conjugate with a certain choice of prior. Section 7 of \cite{hoff2009first} covers this model.  The semi-conjugate formulation naturally supports imputation for missing data.  
 \item \textbf{Mixture models} - Brief presentation of Gaussian mixture models; will occur alongside CAVI.
 \item \textbf{Hidden markov models} -   We will probably need to skip this -- or make it super fast -- in the interest of time.   But might give brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
-\item \textbf{Hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.  
+\item \textbf{Simple hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.  
 \end{itemize}
 
 \subsection{Non-conjugate models} \label{sec:non_conjugacy}
