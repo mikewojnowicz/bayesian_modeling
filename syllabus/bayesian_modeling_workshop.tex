@@ -73,7 +73,9 @@ Between 1/3-1/2 of the workshop will be interactive,  including:
 
 \section{Topics}
 
-Below are topics we plan to cover in the course:
+Below are topics we plan to cover in the workshop.
+
+We organize the workshop around three different modeling situations: (a) fully conjugate models, (b) semi-conjugate models, and (c) non-conjugate models. Note that models are typically named after the likelihood component (e.g. ``Bayesian multivariate normal"), and so a named model often fit into multiple categories, depending on the choice of prior.
 
 \subsection{Why Bayes?}
 
@@ -115,7 +117,7 @@ To do inference with semi-conjugate models, we need to introduce MCMC and VI.  T
 We provide semi-conjugate formulations of the following models.  With such formulations, inference prototypically proceeds via Gibbs sampling or CAVI. 
 
 \begin{itemize}
-	\item \textbf{Bayesian multivariate normal} -  The Bayesian MVN can be semi-conjugate with a certain choice of prior. Section 7 of \cite{hoff2009first} covers this model.  The semi-conjugate formulation naturally supports imputation for missing data.  
+	\item \textbf{Bayesian multivariate normal} -  The Bayesian MVN can be semi-conjugate with a certain choice of prior. Section 7 of \cite{hoff2009first} covers this model.  The semi-conjugate formulation extends naturally to support imputation for missing data.  
 \item \textbf{Mixture models} - Brief presentation of Gaussian mixture models; will occur alongside CAVI.
 \item \textbf{Hidden markov models} -   We will probably need to skip this -- or make it super fast -- in the interest of time.   But might give brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
@@ -192,9 +194,9 @@ Here, again, we use MCMC and VI, but we need to employ more advanced (or at leas
 \item Textbook sections TBD. 
 \end{itemize}
 
-\section{Mini projects}
+\section{Student mini projects}
 
-These are small problems to work on.  Some are open ended.
+These are small problems to work on.  Some are open-ended.  These presumably would not be part of the workshop.
 
 \subsection{Missing data}
 
