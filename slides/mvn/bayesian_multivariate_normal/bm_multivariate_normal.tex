@@ -8,6 +8,8 @@
 \usepackage{/Users/mwojno01/Research/LabMeetings/beamer_preamble}
 
 
+
+
 \title{The Multivariate Normal Model}
 %\subtitle{}
 
@@ -15,7 +17,12 @@
 
 \maketitle
 
-\section{Multivariate Normal}
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered] \tableofcontents[hideallsubsections]
+\end{frame}
+
+
+\section{Overview}
 
 \begin{frame}{Some motivations for the normal}
 
@@ -52,6 +59,107 @@
 	\item Nice hyperparameter interpretation
 	\end{itemize}
 \end{itemize}	
+\end{frame}
+
+\section{Conjugate inference}
+
+\begin{frame}{A conjugate prior}
+\red{TODO: Fill in}
+\end{frame}
+
+\begin{frame}{Application: Modeling typing dynamics}
+
+See powerpoint slides.	
+\end{frame}
+
+%%%%%
+\section{Semi-conjugate inference}
+
+\begin{frame}{Semi-conjugate Bayesian normal}
+
+\begin{sblock}{Semi-conjugate Bayesian MVN}
+Consider the following model with a normal sampling distribution and \textit{semi-conjugate} prior 
+\begin{align*}
+\+\mu &\sim \N_{d}(\+m_0,\+V_0 ) \\
+\+\Sigma &\sim \InverseWishart(\nu_0,  \+\Psi_0) \\
+\+x_i \cond \+\mu,  \+\Sigma &\iid \N_{d}( \+\mu , \+\Sigma), \quad i=1,...,N
+\end{align*}
+We define $\+x := (\+x_1,  \hdots \+x_N)$,  where each $\+x_i \in \R^d$.
+\end{sblock}
+\pause 
+
+\vfill
+\begin{sblock}{Fully conjugate vs semi-conjugate MVNs}
+This model is different than the model with the fully conjugate (Normal-Inverse-Wishart) prior on the pair $(\+\mu, \+\Sigma)$.   The conditionally conjugate prior lacks closed-form posterior updating,  but is also more expressive.    It is also easier to extend upwards.
+\end{sblock}
+
+\end{frame}
+
+\begin{frame}{Semi-conjugate models generally}
+
+\begin{sblock}{Conjugate models}
+Conjugacy can be defined as follows \cite{gelman2013bayesian}. If $\mathcal{F}$ is a class of sampling distributions and $\mathcal{P}$ is a class of prior distributions for $\theta$, then the class $\mathcal{P}$ is \textit{conjugate} for $\mathcal{F}$ if
+\[  p(\theta \cond y ) \in \mathcal{P} \; \text{for all} \; p(\cdot \cond \theta) \in \mathcal{F} \; \text{and} \; p(\cdot) \in \mathcal{P} \]
+\end{sblock}
+
+\begin{sblock}{Semi-conjugate models}
+Conditional conjugacy (sometimes called semi-conjugacy) can be defined similarly  \cite{gelman2013bayesian}.  If $\mathcal{F}$ is a class of sampling distributions and $\mathcal{P}$ is a class of prior distributions for $\theta \cond \phi$, then the class $\mathcal{P}$ is \textit{conditionally conjugate} for $\mathcal{F}$ if
+\[  p(\theta \cond \phi, y) \in \mathcal{P} \; \text{for all} \; p(\cdot \cond \theta, \phi) \in \mathcal{F} \; \text{and} \; p(\cdot \cond \phi) \in \mathcal{P} \]
+\end{sblock}
+\pause 
+\bottomtext{In other words,  a family of prior distributions for a parameter is called conditionally conjugate if the conditional posterior distribution (often called the \textit{complete conditional}),  given the data and all other parameters in the model,  is also in that class.}
+\end{frame}
+
+\begin{frame}{We {\red \heart} semi-conjugacy}	 
+ Why are conditionally conjugate models of interest?  The posterior distributions for conditionally conjugate models are easily approximated with Gibbs sampling or Mean Field Variational Inference -- the former samples from the complete conditional,  whereas the latter takes variational expectations with respect to the natural parameter of the complete conditional.   
+ 
+\end{frame}
+
+
+	
+\begin{frame}{Complete conditionals for the Bayesian MVN}
+	
+We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
+\footnotesize 
+\begin{align*}
+\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
+\intertext{where}
+\+m  &=  \bp{\+V_0^{-1} + N  \+\Sigma^{-1} }^{-1}  \bp{\+V_0^{-1} \+m_0 + N \+\Sigma^{-1}  \bar{\+x} } \\
+\+V &= \bp{\+V_0^{-1} +  N \+\Sigma^{-1} }^{-1} \\
+\intertext{and}
+\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
+%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
+\intertext{where}
+\nu &=  \nu_0 + N \\
+\+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
+%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
+\end{align*}
+\end{frame}
+
+
+ 
+\begin{frame}{Complete conditionals: Interpretation}
+These complete conditionals have nice interpretations:
+\begin{itemize}
+\item \textbf{Complete conditional for $(\+\mu  \cond \+\Sigma, \+x)$}: On the precision scale,  $\+V$ is the sum of the prior precision matrix $\+V_0^{-1}$ and $N$ copies of the precision for each observation,  $\+\Sigma^{-1}$.    Similarly,  $\+m$ is the precision-weighted convex combination of $\+m_0$, the prior mean,    and the empirical average, $\bar{\+x}$.
+\item \textbf{Complete conditional for $(\+\Sigma \cond \+\mu,  \+x)$}:  The covariance was estimated from $\nu$ observations with a sum of pairwise deviation products $\Psi$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Complete conditionals: Proof}
+
+See exponential family notes. 
+
+\end{frame}
+	
+	
+
+%%%%%
+\section{Application: Reading Comprehension}
+
+\begin{frame}
+
+See ipython notebook. 	
 \end{frame}
 
 
