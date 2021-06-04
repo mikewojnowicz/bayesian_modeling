@@ -19,16 +19,43 @@
 
 \begin{frame}{Some motivations for the normal}
 
+\begin{figure}
+\includegraphics[width=.3\textwidth]{images/mvn}
+\end{figure}
+
 \begin{itemize}
-	\item \textit{Maximum entropy} among all distributions with a given mean $\+\mu$ and variance $\+\Sigma$.
-	\item Characterized by independence of sample mean and sample variance. {\footnotesize (Bayesian take: ask if your beliefs about the sample mean are independent from those about the sample variance.)}
-	\item Sample averages are generally approximately normally distributed due to the Central Limit Theorem.
+	\item \textit{Maximum entropy} among all distributions with a given mean $\+\mu$ and variance $\+\Sigma$.  \pause
+	\item Characterized by independence of sample mean and sample variance. {\footnotesize (Bayesian take: ask if your beliefs about the sample mean are independent from those about the sample variance.)} \pause
+	\item Sample averages are generally approximately normally distributed due to the Central Limit Theorem. \pause 
 	\item Sufficient statistics are sample mean and variance; so will consistently estimate population mean and variance even for non-normal distributions.
 \end{itemize}
-	
 \end{frame}
 
 
+\begin{frame}{Why \alert{Bayesian} normal? }
+\begin{itemize}
+\item Prior information often exists and can be taken into account.
+	\begin{itemize}
+	\item Population-level info: see the typing example, PIMA Indians example
+	\item Nature (e.g. support) of data: see the reading comprehension example 
+	\end{itemize} \pause 	
+\item ML estimates of covariance matrices have large variance.
+	\begin{itemize}  
+	\item Problem can be especially bad in certain contexts (e.g., small data, high-dimensions, missing data)
+	\item Spherical prior provides regularization	\item Posterior asymptotically concentrates around maximum likelihood (ML) solution
+	\end{itemize} \pause 
+\item Inference is no harder than for frequentist models
+	\begin{itemize}
+	\item Easy, cheap updates {\scriptsize (a conjugate prior exists)}
+	\item Supports online learning 	
+	\item Fits nicely in more complex models	
+	\item Nice hyperparameter interpretation
+	\end{itemize}
+\end{itemize}	
+\end{frame}
+
+
+%%%%%
 \section{Missing data and imputation}
 
 \begin{frame}{References}

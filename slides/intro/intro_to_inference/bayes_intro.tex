@@ -16,7 +16,7 @@
 \newcommand{\y}{Y}
 
 
-\title{Bayesian Inference: Intro}
+\title{Bayesian Inference: Intro via Conjugacy}
 
 \begin{document}
 
@@ -25,31 +25,7 @@
 
 
 
-%%%%%%%%%%%%%%
 
-\begin{frame}{Posterior predictive distribution}
-
-\begin{sblock}{Given}
-
-$p(\theta | x)$ - posterior \\
-$p(\theta)$ - prior \\
-$p(x | \theta)$ - likelihood
-
-\end{sblock}
-
-\begin{sblock}{Posterior predictive distribution}
-
-Consider the probability of new data $x'$. Posterior predictive distribution is:
-
-$p(x' | x) = \int p(x', \theta | x) \, d\theta = \int p(x' | \theta, x) p(\theta |x) \, d\theta = \int p(x' | \theta) p(\theta | x) \, d\theta$
-
-Incorporates the knowledge and uncertainty about $\theta$ that we still had after seeing data $x$.
-
-\end{sblock}
-
-\end{frame}
-
-%%%%%%%%%
 
 
 
@@ -88,11 +64,24 @@ $$p(\theta| x) \propto p(x | \theta) p(\theta) = \theta^1(1-\theta)^{0}  \theta^
 
 %%%%%%%%%%%%%%%
 
-\begin{frame}{Bayesian inference: tractability notes}
+\begin{frame}{Bayesian inference: conjugacy}
 
-\begin{sblock}{Conjugacy}
+\begin{sblock}{The idea}
 We have conjugacy when the prior and the posterior distributions are in the same family (e.g. in the previous example, the prior and posterior are beta distributions).
 \end{sblock}
+
+\begin{sblock}{Definition}
+Conjugacy can be defined as follows \cite{gelman2013bayesian}. If $\mathcal{F}$ is a class of sampling distributions and $\mathcal{P}$ is a class of prior distributions for $\theta$, then the class $\mathcal{P}$ is \textit{conjugate} for $\mathcal{F}$ if
+\[  p(\theta \cond y ) \in \mathcal{P} \; \text{for all} \; p(\cdot \cond \theta) \in \mathcal{F} \; \text{and} \; p(\cdot) \in \mathcal{P} \]
+\end{sblock}
+
+\bottomtext{Technical note: the condition trivially holds if $\mathcal{P}$ is taken to be the space of all probability distributions!}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%
+
+\begin{frame}{Bayesian inference: tractability notes}
 
 \begin{sblock}{Generally}
 Generally, computing the posterior distribution is much harder than in this example!
@@ -103,6 +92,32 @@ In nonconjugate examples, we need approaches to work with the posterior distribu
 \end{sblock}
 
 \end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}{Bayesian inference: Posterior predictive distribution}
+
+\begin{sblock}{Given}
+
+$p(\theta | x)$ - posterior \\
+$p(\theta)$ - prior \\
+$p(x | \theta)$ - likelihood
+
+\end{sblock}
+
+\begin{sblock}{Posterior predictive distribution}
+
+Consider the probability of new data $x'$. Posterior predictive distribution is:
+
+$p(x' | x) = \int p(x', \theta | x) \, d\theta = \int p(x' | \theta, x) p(\theta |x) \, d\theta = \int p(x' | \theta) p(\theta | x) \, d\theta$
+
+Incorporates the knowledge and uncertainty about $\theta$ that we still had after seeing data $x$.
+
+\end{sblock}
+
+\end{frame}
+
+%%%%%%%%%
 
 
 
