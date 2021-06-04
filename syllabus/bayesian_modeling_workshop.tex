@@ -1,5 +1,6 @@
 
- \pdfoutput=1
+%\pdfoutput=1
+%\synctex=1
 
 \documentclass{article} % For LaTeX2e
 
@@ -26,20 +27,35 @@
 
 \subsection{Textbook}
 
-We will use \cite{gelman2013bayesian},  available online at \url{http://www.stat.columbia.edu/~gelman/book/}. 
+A textbook is not needed for this workshop.  However,  three excellent resources are:
 
-\subsection{Philosophy}
+\begin{enumerate}
+\item Peter Hoff's textbook \cite{hoff2009first}
+\item Christopher Bishop's textbook \cite{bishop2006pattern}
+\item Andrew Gelman et al.'s textbook \cite{gelman2013bayesian},  available online at \url{http://www.stat.columbia.edu/~gelman/book/}. 
+\end{enumerate}
+
+We will draw especially heavily from \cite{hoff2009first}.
+
+\subsection{Structure}
+
+\subsubsection{Philosophy}
 
 \textit{Learning in order to create} is both more fun and more effective than \textit{learning for some extrinsic purpose}.   Hence,  the workshop is structured so as to (a) be student-centered and (b) allow self-determination and autonomy in how students engage with the material. 
 
-\subsection{Format}
+\subsubsection{Format}
 
-About half of the workshop will involve lectures via slides.   
+Between 1/2-2/3 of the workshop will involve lectures via slides.   
 
-About half of the workshop will be interactive,  including:
+Between 1/3-1/2 of the workshop will be interactive,  including:
 
 \begin{itemize}
-\item Student ``lightning chat" (10 minute) presentations.   Something like one per student per workshop,  depending on the number of students.    To allow for student-centered direction and autonomy,  students may choose any of the following:
+\item Interactive exercises:
+	\begin{itemize}
+	\item Google Collab exercises using iPython notebook
+	\item Constructing and/or working with Python (rather than R) implementations of \cite{hoff2009first} and \cite{gelman2013bayesian}.
+	\end{itemize}
+\item Student ``lightning chat" (5 minute) presentations + discussions.    Schedule in 2-3 per day.   To allow for student-centered direction and autonomy,  students may choose any of the following:
 	\begin{itemize}
 	\item Presentation of Python implementations of models from \cite{hoff2009first} ,  \cite{ gelman2013bayesian},  or the workshop.
 	\item Presentation of an exercise from \cite{gelman2013bayesian} or \cite{hoff2009first}.
@@ -49,9 +65,7 @@ About half of the workshop will be interactive,  including:
 	\item Presentation of how a concept relates to something from their research area.
 	%\item A list of questions that we can discuss.
 	\end{itemize}
-
-\item Real-time python applications lab -- Google Collab exercises ?  Python (rather than R) implementations of \cite{hoff2009first} and \cite{gelman2013bayesian}.
-\item Mini reading group discussions  -- They might not have time to read a whole paper,  but we could discuss sections of a text at the very beginning, or perhaps sections of a relevant paper.
+\item (Maybe) Mini reading group discussions  -- We likely won't have time to read a whole paper,  but we could discuss sections of a text at the very beginning, or perhaps sections of a relevant paper.
 \end{itemize}
 
 
@@ -67,36 +81,54 @@ Primary references here are \cite{hoff2009first} and \cite{gelman2013bayesian}.
 
 \begin{itemize}
 \item \textbf{Why Bayes?} -- See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
-\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
-\item \textbf{Introduction to inference}  Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.    Sections 3.1,  3.2, 5, and 5 of \cite{hoff2009first} covers binomial,  Poisson,  normal,  multivariate normal models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.     
-\item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
-\item \textbf{Bayesian workflow} -- Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking,  as does  Section 11.2.3 of \cite{davison2003statistical}.    Some points to make re: model checking
+\item \textbf{Introduction to inference} 
 	\begin{itemize}
-	\item \textit{Samples from the posterior predictive should capture important properties of the observed dataset.}  For a violation of this,  see the normal model for Newcomb's speed of light measurements.  (Compare Figures 6.2 and 3.1 of \cite{gelman2013bayesian}.)
-	\end{itemize}
+	\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews of the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
+	\item \textbf{Single-parameter conjugate models} - Chapter 11. 2 of \cite{davison2003statistical} has a nice very brief introduction to inference.      Sections 3.1 and 3.2 of \cite{hoff2009first} cover the  binomial and Poisson models.   Introduce the exponential family formalism (see \cite{wojnowiczXXXXexponential};  see also Section 5.2 of \cite{davison2003statistical} ) for much greater breadth.  
+	\item \textbf{Bayesian multivariate normal} -  Section 7 of \cite{hoff2009first} covers the  multivariate normal model.  The Bayesian MVN is a fundamental model in and of itself.  It also provides some nice opportunities: introducing the notion of semiconjugacy,  discussing imputation for missing data, and motivating Gibbs sampling.   Note that the Bayesian MVN can be either conjugate or semi-conjugate,  depending on the choice of prior.
+	\end{itemize}   
+
 \end{itemize}
 
-We will want to find a way to get students to group up,  probably based on domain expertise/interests,  so that they can eventually work together on a project.  
+%We will want to find a way to get students to group up,  probably based on domain expertise/interests,  so that they can eventually work together on a project.  
 
-\subsection{Methods}
 
-We introduce these methods,  which can be used for models without closed-form posteriors.  We practice applying them in the next section.  
+
+\subsection{Semi-conjugacy} \label{sec:semi_conjugacy}
+
+\subsubsection{Methods}
+
+We introduce these methods for handling models without closed-form posteriors.  We practice applying them in the next subsection.  For now, we focus on semi-conjugate models.
 
 \begin{itemize}
-\item \textbf{MCMC} - \blue{Karin} will present,  including an introduction to pymc3. 
-\item \textbf{Variational inference} \cite{wojnowiczXXXXfoundations}.
+\item \textbf{Intro to sampling} - Basic sampling methods (inverse cdf,  rejection sampling) and introduction to Markov Chain Monte Carlo (MCMC) - Metropolis Hastings, Gibbs sampling.
+\item \textbf{Variational inference} - We will focus on coordinate ascent variational inference (CAVI) \cite{wojnowiczXXXXfoundations}.
 \end{itemize} 
 
-\subsection{More complicated models} \label{sec:more_complicated_models}
-
-Here are some models which are still fairly standard,  but lack conjugate priors,  and so inference typically requires VI or MCMC.     \blue{Karin: Where here,  or elsewhere,  would you like to illustrate applications of MCMC?}
+\subsubsection{Models}
+These models are often semi-conjugate, in which case inference typically requires MCMC (usually Gibbs sampling) or VI (usually coordinate ascent variational inference). 
 
 \begin{itemize}
-\item \textbf{Hierarchical models}  Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
-\item \textbf{Regression models for binary and multi-class data} Includes logistic regression, probit regression,  binomial,  multinomial,  etc.    Use this to cover additional inference techniques:  auxilliary variable trick and Laplace variational inference.    Show demo ``beating scikit-learn with variational inference."   See also pp.  390 of \cite{hoff2009first} for a useful warm-starting strategy.   Could generalize to Bayesian GLMs.   Could also cover or mention hierarchical extensions (i.e.  Bayesian GLMM's).   
-\item \textbf{Mixture models} I will give CAVI for Gaussian mixture models. 
-\item \textbf{Time series models}  Probably just hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}},  although would be nice to also introduce state space models.    Could mention embedding of GLM's or GLMM's within them.   May give some overview to probabilistic graphical models here.  
-\item \textbf{Bayesian Deep Learning}  Bayes and neural networks.   20-30 min w/ guest presenter,  Kyle Heuton,  Ph.D.  student,  computer science.
+\item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
+\item \textbf{Hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.
+\item \textbf{Mixture models} - Brief presentation of Gaussian mixture models. Give CAVI.
+\item \textbf{Hidden markov models} -  Brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.  
+\end{itemize}
+
+\subsection{Non-conjugacy} \label{sec:non_conjugacy}
+
+\subsubsection{Methods}
+
+\begin{itemize}
+	\item \textbf{Gradient-based sampling} - A brief introduction to Hamiltonian Monte Carlo (HMC) and No U-Turn Sampler (NUTS).  Introduction to the python package \texttt{pymc3}.
+	\item \textbf{Model augmentation} - An auxilliary variable may be introduced to transform a non-conjugate model into one that is conjugate or semi-conjugate.
+	\item \textbf{Variational inference for non-conjugate models} - We will probably need to skip this in the interest of time.
+\end{itemize}
+\subsubsection{Models}
+
+\begin{itemize}
+\item \textbf{Categorical models} - Includes logistic regression, probit regression,  binomial,  multinomial,  etc.  Cover the auxilliary variable trick, if there is time. See also pp.  390 of \cite{hoff2009first} for a useful warm-starting strategy.  
+\item \textbf{Bayesian deep learning models} -  Bayes and neural networks.   20-30 min w/ guest presenter,  Kyle Heuton,  Ph.D.  student,  computer science.
 \end{itemize}
 
 %\subsection{Even more complicated models} 
@@ -137,7 +169,7 @@ Here are some models which are still fairly standard,  but lack conjugate priors
 
 \appendix
 
-\section{Resources which may be appropriate for mini-reading group or student mini-presentations}
+\section{Student mini-presentations}
 
 \subsection{Intro} 
 \begin{itemize}
@@ -151,17 +183,17 @@ Here are some models which are still fairly standard,  but lack conjugate priors
 \item Textbook sections TBD. 
 \end{itemize}
 
-\subsection{Missing data and imputation}
+\section{Mini projects}
+
+These are small problems to work on.  Some are open ended.
+
+\subsection{Missing data}
+
+This project covers missing data and imputation.  Imputation is made part of inference,  rather than a separate step. 
 
 \begin{itemize}
 \item  Inference with a Bayesian normal model in the presence of missing data is given,  in R code,  on pp. 119 of \cite{hoff2009first}.    Implement,  and test,  the code in Python.
 \end{itemize}
-
-
-
-\section{Mini projects}
-
-These are small,  open-ended problems to work on.
 
 \subsection{Batting average dataset}
 
@@ -181,6 +213,18 @@ Examples:
 \begin{itemize}
 \item If batting averages are indeed heavy tailed or skewed,  move from a normal distribution to something else.   For example,  could try a t-distribution with Laplace inference to handle the non-conjugacy. 
 \item If the variance is indeed too high for a binomial model,  try something that can handle the overdispersion. 
+\end{itemize}
+
+\section{Some topics we won't get to}
+
+\begin{itemize}
+\item \textbf{Bayesian workflow} -- Lots of nice resources for Bayesian workflow.    For example: \cite{gelman2020bayesian} or \cite{gabry2019visualization}.   Section 6 of \cite{gelman2013bayesian} covers model checking,  as does  Section 11.2.3 of \cite{davison2003statistical}.    Some points to make re: model checking
+	\begin{itemize}
+	\item \textit{Samples from the posterior predictive should capture important properties of the observed dataset.}  For a violation of this,  see the normal model for Newcomb's speed of light measurements.  (Compare Figures 6.2 and 3.1 of \cite{gelman2013bayesian}.)
+	\end{itemize}
+\item \textbf{Bayesian GLM's and GLMM's} - Bayesian GLM's would extend the section on ``Regression models for binary and multi-class data" to other distributions, and present models in greater generality.  Bayesian GLMM's are the hierarchical extension.  Some inference techniques that could be useful here include:  auxilliary variable trick, HMC, Laplace variational inference. Note that intelligent handling of semi-conjugacy can still be useful.
+\item \textbf{Bayesian time series models} -  We just covered hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}, but it would be nice to also introduce state space models.    Could mention embedding of GLM's or GLMM's within them.   Could give some overview to probabilistic graphical models here. 
+\item \textbf{VI for nonconjugate models} - For instance, we could cover Laplace and Delta Method VI as applied to categorical models.   We could also cover black box / automatic differentiation VI.
 \end{itemize}
 
 \section{Notes to self:  some details for when slides are constructed}
