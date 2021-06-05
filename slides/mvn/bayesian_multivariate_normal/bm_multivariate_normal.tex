@@ -279,13 +279,106 @@ The marginal density $p(y_{i1},  y_{i3} \cond \+\theta)$ is simply a bivariate n
 
 \end{frame}
 
-\begin{frame}{\red{TODO}}
+\begin{frame}{Gibbs sampling with missing data}
+
+\begin{sblock}{Complete data}
+If $\+Y$ is the $n \times p$ matrix in which $o_{i,j}=1$ if $Y_{i,j}$ is observed and $o_{i,j} = 0$ if $Y_{i,j}$ is missing, then $\+Y$ has two parts
 
 \begin{itemize}
-\item Inference: Show how to adjust Gibbs sampling in the presence of missing data (see Hoff pp. 117-pp.118;  also make sure the notation,  and the use of semiconjugate vs conjugate prior,  aligns with how I set up the multivariate normal initially -- earlier on in this section of the course)
-\item Correlations - discuss how to construct the posterior correlation matrix from the Gibbs samples (and note this is another example of the Bayesian paradigm yielding unlimited access to posterior functionals of interest,  without doing any extra inferential work).    Show the specific values on pp.119,  and the left hand side of Fig 7.4.   This is good to show because it is something you'd probably want out of a normal model anyways,  and also becuase it is needed for the next point.
-\item Show true values vs posterior expectations of the missing data (Hoff Fig 7.5)   Mention that we get better predictions for skin and bmi,  due to their higher correlations.  Highlight how much better the posterior expectation is than a flat fixed value.
+\item $\+Y_{\text{obs}} := \{y_{i,j} : o_{i,j} =1 \}$, the data that we observe, and 
+\item 	$\+Y_{\text{miss}} := \{y_{i,j} : o_{i,j} =0 \}$, the data that we do not observe.
 \end{itemize}
+\end{sblock}
+
+\begin{sblock}{Gibbs sampler}
+A Gibbs sampling scheme for approximating the posterior is given by:
+
+\begin{enumerate}
+\item Sampling $\+\mu^{(s+1)}$ from $p(\+\mu \cond \+Y_{\text{obs}}, \+Y_{\text{miss}}^{(s)}, \+\Sigma^{(s)})$;
+\item Sampling $\+\Sigma^{(s+1)}$ from $p(\+\Sigma \cond \+Y_\text{obs}, \+Y_\text{miss}^{(s)}, \+\mu^{(s+1)})$;
+\item Sampling $\+Y_\text{miss}^{(s+1)}$ from $p(\+Y_\text{miss} \cond \+Y_\text{obs}, \+\mu^{(s+1)}, \+\Sigma^{(s+1)})$;
+\end{enumerate}
+\end{sblock}
+
+\pause
+\bottomtext{The first two steps are the same as before!  The third step is covered in the next slide.  Any guesses?}
+
+\end{frame}
+
+
+\begin{frame}{Sampling the missing data}
+
+\scriptsize 
+\begin{align*}
+p(\+Y_\text{miss} \cond \+Y_\text{obs}, \+\mu, \+\Sigma) & \propto p(\+Y_\text{miss},  \+Y_\text{obs} \cond  \+\mu, \+\Sigma) \\
+&= \ds\prod_{i=1}^n p(\+y_{i, \text{miss}}, \+y_{i, \text{obs}} \cond \+\mu, \+\Sigma) \\
+&\propto \ds\prod_{i=1}^n p(\+y_{i, \text{miss}} \cond \+y_{i, \text{obs}},  \+\mu, \+\Sigma) \\
+\end{align*}
+
+How to proceed? \pause  We apply standard results about conditional distributions formed from partitions of multivariate normals:
+
+\begin{align*}
+\+y_{[b]} \cond \+y_{[a]}, \+\mu, \+\Sigma & \sim \mathcal{MVN} \bigg( \+\mu_{b|a}, \+\Sigma_{b|a}  \bigg), \quad \text{where} \\
+\+\mu_{b|a} &= \+\mu_{[b]} + \+\Sigma_{[b,a]} (\+\Sigma_{[a,a]})^{-1} (\+y_{[a]} - \+\mu_{[a]}) \\
+\+\Sigma_{b|a}  &= \+\Sigma_{[b,b]} -  \+\Sigma_{[b,a]} (\+\Sigma_{[a,a]})^{-1} 	\Sigma_{[a,b]}
+\end{align*}
+
+\bottomtext{Some macroscopic properties:  \pause 
+	\begin{itemize}
+	\item The conditional mean, $\+\mu_{b|a}$, starts off at the unconditional mean, $\+\mu_{[b]}$, but then is modified by $(\+y_{[a]} - \+\mu_{[a]})$ in a way that depends on the covariance $\+\Sigma_{[b,a]}$.
+	\item The conditional variance $\+\Sigma_{b|a}$ is less than the unconditional variance $\+\Sigma_{[b,b]}$  
+	\end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}{Posterior Correlations}
+
+\begin{columns}
+\begin{column}{0.6\textwidth}
+
+To each covariance matrix there corresponds a correlation matrix $\+C$ given by
+\[ \+C := \bigg\{c_{jk} : c_{jk} = \Sigma_{[j,k]} / \sqrt{\Sigma_{[j,j]} \Sigma_{[k,k]}} \bigg\} \]
+
+Simply taking the mean across samples, we obtain the approximation
+\[ \E[\+C \cond \+y_1, ..., \+y_n] = 
+\begin{bmatrix}
+1.00 & 0.23 & 0.25& 0.19 \\
+0.23& 1.00& 0.25& 0.24 \\	
+0.25& 0.25& 1.00& 0.65 \\	
+0.19 &0.24&0.65&1.00 \\		
+\end{bmatrix}
+\]
+
+\scriptsize 
+Notes:
+\begin{itemize}
+\item Bayesian paradigm again yielding unlimited access to posterior functionals of interest,  without doing any extra inferential work!   % Compare to frequentist or variational inference 
+\item Correlations are generally of interest for multivariate normal models, but they are \textit{especially} relevant to imputation. % used to improve how misssing values are filled in.
+\end{itemize}
+\end{column}
+
+\begin{column}{0.4\textwidth}
+\begin{figure}
+\includegraphics[width=.7\textwidth]{images/pima_correlations}
+\caption{95\% posterior confidence intervals for correlations}
+\end{figure}
+\end{column}
+
+
+\end{columns}
+ \end{frame}
+
+\begin{frame}{Intelligent imputations}
+The posterior expectation gives a much better imputation than some flat fixed value.
+
+\begin{figure}
+\includegraphics[width=.45\textwidth]{images/pima_missing_vs_true}
+\caption{True values of the missing data vs. posterior expectations}
+\end{figure}
+
+\pause 
+ Imputations are especially good for \texttt{skin} and \texttt{bmi},  due to their higher correlations.  
 
 \end{frame}
 
