@@ -98,11 +98,12 @@ complex models.
 \vfill 
 
 {\scriptsize
-\textbf{Observations} \pause 
+\textbf{How does this align with the previous slide?} \pause 
 \begin{itemize}
 \item Bayesian model selection works well here!  The true (cubic) model has the highest evidence.  The evidence is lower for models that are underfit (quadratic) or overfit (quartic).
 \item Posterior draws from the cubic model best match the true data generating process.
 \item Maximum likelihood doesn't do this.  ML says: the higher the order, the \textit{better} the fit. 
+\item The ranking of models by evidence matches what would be expected from the previous slide.
 
 \end{itemize}
 }
@@ -186,6 +187,75 @@ This suggests reasonably strong evidence of a difference at young ages, and less
 
 %%%%%%%%%%%%%%%%%%%%%
 \section{The model}
+
+\begin{frame}{The model}
+
+A basic Bayesian multivariate linear regression model is given by
+
+\vfill
+
+\begin{align*}
+\+\beta &\iid \N(\+\mu_0,  \+\Sigma_0) \\
+\sigma^2 &\sim \InverseGamma (\frac{\nu_0}{2}, \frac{\nu_0}{2} \sigma_0^2) \\
+\epsilon_{i} &\iid \N(0, \sigma^2) \\
+y_{i} &= \+\beta^T \+x_{i} + \epsilon_{i} 
+%\labelit \label{eqn:linear_regression}
+\end{align*}
+
+This model is conditionally conjugate. 
+\end{frame}
+
+\begin{frame}{Prior specification}
+
+A common choice of prior is obtained by setting the hyperparameters as follows:
+
+\begin{sblock}{Prior on regression weights $\+\beta$}
+\begin{itemize}
+\item Standardize the covariates $\+x$.
+\item Set $\+\mu_0 =\+0, \+\Sigma_0 = \+I$.
+\end{itemize}
+\end{sblock}
+
+\begin{sblock}{Prior on observation noise $\sigma^2$}
+The hyperparameters $(\sigma_0^2,  \nu_0)$ can be interpreted as the sample variance and sample size of prior observations.
+
+\begin{itemize}
+\item Set $\nu_0=1$.
+\item Set $\sigma_0^2$ based on prior expectations.
+\end{itemize}
+\end{sblock}
+\end{frame}
+
+\begin{frame}{Weakly informative priors}
+
+\scriptsize  Idea: if prior is not going to represent real prior information about the parameters, make it as minimally informative as possible.   Here are a couple of strategies:
+\pause 
+\vfill 
+\begin{sblock}{The \textit{unit information prior} \hfill \tiny (Kass and Wasserman, 1995) }	
+\scriptsize The precision of $\widehat{\+\beta}_{\text{ML}}$ is  $\Var^{-1} [\widehat{\+\beta}_{\text{ML}}] = (\+X^T\+X)/ \sigma^2$, and gives the amount of information in $n$ observations.  The unit information prior provides ``one $n$th" as much information 
+
+\begin{itemize}
+\item Set $\+\beta_0 = \widehat{\+\beta}_{\text{ML}}$.
+\item Set $\+\Sigma_0^{-1} = (\+X^T\+X)/ (n\sigma^2)$
+\end{itemize}
+
+{\tiny Note: Strictly speaking, this is not a real \textit{prior} distribution.}
+\end{sblock}
+
+\pause 
+\begin{sblock}{The $g$-prior \hfill \tiny (Zellner, 1986)}
+Parameter estimation should be invariant to changes in scale of the regressors.  If $x_3 =$ age in years and $\wt{x}_3=$ age in months, then the posterior for $12 \times \wt{\beta}_3$ should be the same as the posterior for $\beta_3$. 
+
+This condition is met if 
+\begin{itemize}
+\item Set $\+\beta_0 = \+0$.
+\item Set $\+\Sigma_0^{-1} = k (\+X^T\+X)^{-1}$ for some $k$.
+\end{itemize}
+
+This prior specifies $k$ in terms of the error variance, $k=g \sigma^2$ for some $g$.  There are different methods for setting $g$, e.g. $g=n$.
+\end{sblock}
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%
