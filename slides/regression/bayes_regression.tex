@@ -190,19 +190,42 @@ This suggests reasonably strong evidence of a difference at young ages, and less
 
 \begin{frame}{The model}
 
-A basic Bayesian multivariate linear regression model is given by
+A basic Bayesian multiple linear regression model is given by
 
 \vfill
 
 \begin{align*}
 \+\beta &\iid \N(\+\mu_0,  \+\Sigma_0) \\
 \sigma^2 &\sim \InverseGamma (\frac{\nu_0}{2}, \frac{\nu_0}{2} \sigma_0^2) \\
-\epsilon_{i} &\iid \N(0, \sigma^2) \\
-y_{i} &= \+\beta^T \+x_{i} + \epsilon_{i} 
+y_{i} &\iid \N(\+\beta^T \+x_{i}, \sigma^2) \\
 %\labelit \label{eqn:linear_regression}
 \end{align*}
 
 This model is conditionally conjugate. 
+\end{frame}
+
+\begin{frame}{Basis functions}
+	
+A linear regression model must be linear in its \textit{regression weights}, $\+\beta$, but need not be linear in its \textit{covariates} $\+x$.
+
+More flexible models can be constructed by considering linear combinations of nonlinear functions of the covariates.
+
+
+
+\begin{sblock}{Examples}
+\pause \scriptsize 
+For example, for a single covariate, the linear predictor $\eta_i := \E[y_i \cond \+\beta]$ could be given by
+ \[ \eta_i  = \beta_0 + \sum_{m=1}^{M-1} \beta_{m} \phi_m(x_i)\]
+ where
+\begin{itemize}
+\item polynomial basis functions take
+ \[ \phi_m(x_i) = x_i^m \] 
+ \hfill {\tiny (and such a model is known as \textit{polynomial regression})}
+\item gaussian basis functions take
+\[ \phi_m(x_i) = \exp \bigg\{ -\half \df{(x-\mu_m)^2}{s^2} \bigg\} \] 
+\end{itemize}
+\end{sblock}
+
 \end{frame}
 
 \begin{frame}{Prior specification}
