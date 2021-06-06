@@ -17,6 +17,39 @@
 
 \maketitle
 
+\section{Why Bayesian Linear Regression?}
+
+\begin{frame}{Why Bayes? (Linear Regression Version)}
+\begin{itemize}
+\item Provides a \textit{distribution} over regression lines
+\item Automatically supports model selection / complexity control.
+\item Easy access to nuanced inferential quantities.
+\end{itemize}
+	
+\end{frame}
+
+
+\subsection{Distribution over regression lines}
+\begin{frame}{Bayesian Linear Regression}
+\scriptsize
+
+We learn a \textit{distribution} over regression lines.
+
+\begin{center}
+\includegraphics[width=.5\textwidth]{images/bishop_bayesian_regression}
+
+Sequential Bayesian learning for a simple linear model.
+
+\bottomtext{Image Credit: Bishop, C. M. (2006). Pattern recognition and machine learning. Springer.}
+\end{center}
+
+
+
+
+\end{frame}
+
+\subsection{Automatic model selection}
+
 \begin{frame}{Bayesian Occam's Razor}
 \scriptsize
 
@@ -33,7 +66,7 @@ dataset, here indicated by the dotted line, we can use the marginal likelihood t
 complex models. 
 
 
-\hfill \tiny Ghahramani, Z. (2013). Bayesian non-parametrics and the probabilistic approach to modelling. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 371(1984), 20110553.
+\bottomtext{Ghahramani, Z. (2013). Bayesian non-parametrics and the probabilistic approach to modelling. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 371(1984), 20110553.}
 \end{frame}
 
 \begin{frame}{Bayesian Occam's Razor}
@@ -68,11 +101,95 @@ complex models.
 \textbf{Observations} \pause 
 \begin{itemize}
 \item Bayesian model selection works well here!  The true (cubic) model has the highest evidence.  The evidence is lower for models that are underfit (quadratic) or overfit (quartic).
-\item Correspondingly, typical draws from the posterior model best match the true data generating process.
+\item Posterior draws from the cubic model best match the true data generating process.
+\item Maximum likelihood doesn't do this.  ML says: the higher the order, the \textit{better} the fit. 
+
 \end{itemize}
 }
 
 \end{frame}
+
+\subsection{Easy access to nuanced inferential quantities}
+
+\begin{frame}{Exercise Program Dataset \hfill \tiny (Hoff, \textit{A first course in Bayesian Statistical Methods}) }
+	
+\begin{center}
+\includegraphics[width=.5\textwidth]{images/hoff_exercise_program_data}
+
+\scriptsize Change in maximal $\text{O}_2$ uptake as a function of age and exercise program
+\end{center}
+
+{\normalsize \darkblue{Model}}
+\scriptsize 
+\begin{align*}
+Y_i &= \beta_1 x_{i,1} + \beta_2 x_{i,2} + \beta_3 x_{i,3} + \beta_4 x_{i,4} + \epsilon_i, \; \text{where} \\
+x_{i,1} &=1 \; \text{ for each subject $i$} \\
+x_{i,2} &=0 \; \text{if subject $i$ is on the running program, 1 if on aerobic} \\
+x_{i,2} &= \text{age of subject $i$} \\
+x_{i,4} &= x_{i,2} \times x_{i,3}
+\end{align*}
+
+Under this model, the conditional expectations for $Y$ are:
+\begin{align*}
+\E[Y|\+x] &= \beta_1 + \beta_3 \times \text{age} \; \text{if $x_1 =0$, and} \\
+\E[Y|\+x] &= (\beta_1 + \beta_2) + (\beta_3 + \beta_4) \times \text{age} \; \text{if $x_1 =1$} 
+\end{align*}
+%\bottomtext{Hoff, P. D. (2009). A first course in Bayesian statistical methods (Vol. 580). New York: Springer.}
+\end{frame}
+
+\begin{frame}{Frequentist Inference}
+	
+\begin{center}
+\includegraphics[width=.4\textwidth]{images/hoff_exercise_program_OLS_lines}
+
+\scriptsize Maximum likelihood regression lines for the $\text{O}_2$ uptake data.
+\end{center}
+
+\begin{align*}
+\widehat{\+\beta}_{\text{ML}} &= (-51.29, 13.11, 2.09, -.32)^T \\
+\text{SE}(\widehat{\+\beta}_{\text{ML}} )& = (12.25, 15.76, 0.53, 0.65)^T 
+\end{align*}
+
+\scriptsize Comparing the values of $\widehat{\+\beta}_{\text{ML}}$ to their standard errors suggests the evidence for differences between exercise programs is not very strong.
+\end{frame}
+
+
+\begin{frame}{Bayesian Inference}
+	
+Bayesian inference agrees with the ML estimate, showing only weak evidence of a difference between exercise programs.
+
+ \begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{images/hoff_exercise_program_posteriors}
+\caption{Posterior distributions for $\beta_2$ and $\beta_4$. The first two plots show the marginal prior distributions (grey) for comparison. The 95\% posterior intervals for $\beta_2$ and $\beta_4$ both contain 0.}
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}{Bayesian Inference}
+	
+But the parameters by themselves don't tell the whole story. 
+
+We can also look at the posterior distributions of $\beta_2 + \beta_4 x$ for each age x. 
+
+ \begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{images/hoff_exercise_program_posteriors_by_age}
+\caption{95\% confidence intervals for the difference in expected change scores between aerobics subjects and running subjects}
+\end{figure}
+
+This suggests reasonably strong evidence of a difference at young ages, and less evidence at older ones.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{The model}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{Inference}
 
 
 \end{document}
