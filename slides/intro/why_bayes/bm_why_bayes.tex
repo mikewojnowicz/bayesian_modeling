@@ -112,6 +112,25 @@ The evidence is plotted as a function of model order.  Model orders M=0 to M=3 h
 \end{frame}
 
 
+\begin{frame}{Bayesian Occam's Razor}
+\scriptsize
+
+\begin{center}
+\includegraphics[width=.6\textwidth]{images/auto_occams_razor}
+\end{center}
+Competing probabilistic models
+correspond to alternative distributions over the datasets. Here, we have illustrated three possible models that spread their
+probability mass in different ways over these possible datasets. A \textit{complex} model (shown in blue) spreads its mass over many
+more possible datasets, whereas a \textit{simple} model (shown in green) concentrates its mass on a smaller fraction of possible data.
+Because probabilities have to sum to one, the complex model spreads its mass at the cost of not being able to model simple
+datasets as well as a simple model—this normalization is what results in an automatic Occam razor. Given any particular
+dataset, here indicated by the dotted line, we can use the marginal likelihood to reject both overly simple models, and overly
+complex models. 
+
+
+\hfill \tiny Ghahramani, Z. (2013). Bayesian non-parametrics and the probabilistic approach to modelling. Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences, 371(1984), 20110553.
+\end{frame}
+
 
 \subsection{Estimating the probability of a rare event}
 
