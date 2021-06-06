@@ -47,9 +47,7 @@ We will draw especially heavily from \cite{hoff2009first}.
 
 \subsubsection{Format}
 
-Between 1/2-2/3 of the workshop will involve lectures via slides.   
-
-Between 1/3-1/2 of the workshop will be interactive,  including:
+A portion of the workshop will be interactive,  including:
 
 \begin{itemize}
 \item Interactive exercises:
@@ -57,11 +55,12 @@ Between 1/3-1/2 of the workshop will be interactive,  including:
 	\item Google Collab exercises using iPython notebook
 	\item Constructing and/or working with Python (rather than R) implementations of \cite{hoff2009first} and \cite{gelman2013bayesian}.
 	\end{itemize}
-\item Student ``lightning chat" (5 minute) presentations + discussions.    Schedule in 2-3 per day.   To allow for student-centered direction and autonomy,  students may choose any of the following:
+\item Student ``lightning chat" (5 minute) presentations.  To allow for student-centered direction and autonomy,  students may choose any of the following:
 	\begin{itemize}
-	\item Presentation of Python implementations of models from \cite{hoff2009first} ,  \cite{ gelman2013bayesian},  or the workshop.
-	\item Presentation of an exercise from \cite{gelman2013bayesian} or \cite{hoff2009first}.
+	\item Selecting an idea from the "Lightning Chat ideas" section of the Appendix. 
 	\item Reviewing a demo with us from \url{https://github.com/avehtari/BDA_py_demos}.
+	\item Presentation of Python implementations of models from \cite{hoff2009first} ,  \cite{ gelman2013bayesian},  or the workshop.
+	\item Presentation of an exercise, e.g. from \cite{gelman2013bayesian} or \cite{hoff2009first}.
 	\item Presentation of a reading section,  blog,  etc.  of interest.
 	\item Presentation of a mathematical derivation of something relevant to the course.
 	\item Presentation of how a concept relates to something from their research area.
@@ -80,8 +79,6 @@ We organize the workshop around three different modeling situations: (a) fully c
 \subsection{Why Bayes?}
 
 We motivate the Bayesian approach.
-
-See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
 
 \subsection{Fully conjugate models}
 
@@ -181,18 +178,19 @@ Here, again, we use MCMC and VI, but we need to employ more advanced (or at leas
 
 \appendix
 
-\section{Student mini-presentations}
+\section{Student lightning chat ideas}
 
 \subsection{Intro} 
 \begin{itemize}
 \item Present \textit{Why most published research findings are false. } \cite{ioannidis2005most}.
 \item Present Bayesian analysis of multiple sudden infant deaths.  \cite{hill2004multiple}.
-\item Textbook sections TBD. 
+\item Present a piece of Ghahramani, Z. (2015). Probabilistic machine learning and artificial intelligence. Nature, 521(7553), 452-459.  
 \end{itemize}
 
 \subsection{Model Checking} 
 \begin{itemize}
-\item Textbook sections TBD. 
+\item Textbook sections TBD.
+\item Present a section of Gelman, A., Vehtari, A., Simpson, D., Margossian, C. C., Carpenter, B., Yao, Y., ... & Modrak, M. (2020). Bayesian workflow. arXiv preprint arXiv:2011.01808. 
 \end{itemize}
 
 \section{Student mini projects}
@@ -242,6 +240,8 @@ Examples:
 \section{Notes to self:  some details for when slides are constructed}
 
 \subsection{Why Bayes}
+
+\paragraph{Original sketch} See Section 1.2 of \cite{hoff2009first}.   \cite{bishop2006pattern} has some nice plots motivating why use Bayesian linear regression over standard linear regression.   \cite{ghahramani2013bayesian}  has some nice plots illustrating the Bayesian approach and how it mitigates overfitting.   I can provide a nice example with biometric profiling of human typing dynamics.   \cite{held2006bayesian} has a nice simple example of obtaining non-standard functionals from the posterior that can be of interest.   \cite{wilson2020case} presents the case for Bayesian deep learning.  
 
 \paragraph{Bayes law in real life}
 The primary motivation here is the importance of not ``flipping the conditional" during interpretation.   Sally Clark was convicted of murdering her two children,  because the chance of two babies dying of SIDS in one family was one in 73m.   But the expert witness ignored the prior probability that someone was a double murderer \cite{guardianXXXXobscure}.  (See \cite{hill2004multiple} for discussion.)      Could also refer to the classic example with positive tests - maybe in reference to COVID \cite{guardianXXXXobscure}.     \textit{Why most published research findings are false} \cite{ioannidis2005most} provides a third example. 
