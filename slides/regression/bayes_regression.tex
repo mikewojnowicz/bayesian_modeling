@@ -195,14 +195,28 @@ A basic Bayesian multiple linear regression model is given by
 \vfill
 
 \begin{align*}
-\+\beta &\iid \N(\+\mu_0,  \+\Sigma_0) \\
+\+\beta &\sim \N(\+\mu_0,  \+\Sigma_0) \\
 \sigma^2 &\sim \InverseGamma (\frac{\nu_0}{2}, \frac{\nu_0}{2} \sigma_0^2) \\
-y_{i} &\iid \N(\+\beta^T \+x_{i}, \sigma^2) \\
-%\labelit \label{eqn:linear_regression}
+y_{i} \cond \+\beta, \sigma^2 &\iid \N(\+x_{i}^T \+\beta, \sigma^2) \\
+\labelit \label{eqn:linear_regression}
 \end{align*}
 
-This model is conditionally conjugate. 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{Inference}
+
+\begin{frame}
+The model \eqref{eqn:linear_regression}
+ is conditionally conjugate.
+ 
+ \red{TODO: Fill in} 
+\end{frame}
+
+
+%%%%%%%%%%
+\section{Application Notes}
+
 
 \begin{frame}{Basis functions}
 	
@@ -280,9 +294,6 @@ This prior specifies $k$ in terms of the error variance, $k=g \sigma^2$ for some
 
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%
-\section{Inference}
 
 
 \end{document}
