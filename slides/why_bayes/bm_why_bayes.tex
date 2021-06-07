@@ -329,12 +329,46 @@ Compared to the post-hoc ``adjustment" approach,  the Bayesian formalism provide
 
 \end{frame}
 
+\section{Conclusion}
+
+\begin{frame}{Summary}
+\textit{What are some advantages of the Bayesian approach?} \pause 
+\begin{itemize}
+\item Exploits prior knowledge {\tiny (previous results, reasonable values of data, etc.)} \pause 
+\item Automatic complexity control \pause 
+\item Immediate access to many inferential quantities of inference \pause 
+\item Natural (and more flexible) solutions to frequentist problems:  {\tiny (adjustments to confidence intervals, regularization, etc.) }  \pause 
+\item Can be easier in practice to extend to more complex models 
+\end{itemize}
+	
+\end{frame}
+
 \begin{frame}{Extensions: Hierarchical models}
 
-% TODO OR DISCUSS: Hierarchical models use ``surrounding data" as a prior in a more formal way.    Think back to Hoff's disease prevalence example.    In that case,  we constructed our beta prior manually,  by taking a couple of basic facts about similar towns and then converting that into beta parameters.    A hierarchical model could let the prior expectation be tied more exactly to those surrounding towns (including, if a regression is involved,  similarity w.r.t. \text{relevant} characteristics,  such as size,  SES,  etc.),  to automatically set the strength of the prior expectation according to the relative uncertainty within and between towns,  and to automatically adapt as data rolls in. 
+\begin{itemize}
+\item Hierarchical models use ``surrounding data" as a prior in a more formal way.   
+\item In Hoff's disease prevalence example,  we constructed our beta prior manually,  by taking a couple of basic facts about similar towns and then converting that into beta parameters.    
+\item A hierarchical model could let the prior expectation be tied more exactly to those surrounding towns.   We can automatically set the strength of the prior expectation according to the relative uncertainty within and between towns,  and to automatically adapt as data rolls in. 
+\item Hierarchical regressions allow the prior expectation to be more strongly influenced by towns that are similar w.r.t. \text{relevant} characteristics,  such as size,  SES,  etc
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Utility for large datasets}
+
+
+\begin{itemize}
+\item Still useful for larger models
+\vfill 
+\item Especially complex models -- what really matters is the information we get about a given parameter.
+\vfill 
+\begin{quotation}
+A big dataset is just a bunch of small datasets	
+\end{quotation}
+\vfill 
+\item Example: biometric profiling.  {\tiny (A given bigram may be rare to type, but in the end, you're typing \textit{some} rare bigram a high percentage of the time!) }
+\end{itemize}
 
 % TODO OR DISCUSS: Still useful for larger models.      Especially complex models - what really matters it the information we get about a given parameter.  Mention the yalnce biometric profiling.   A given bigram may be rare to type,  but in the end you're typing some rare bigram a high percentage of the time!  Mike Hughes mentioned Andrew Gelman's blog post " a big dataset is just a bunch of small datasets".   
-
 \end{frame}
 
 \end{document}
