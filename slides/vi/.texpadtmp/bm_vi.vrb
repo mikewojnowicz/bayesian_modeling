@@ -1,0 +1,27 @@
+\frametitle{Coordinate ascent, and its discontents}
+
+
+	\metroset{block=fill}
+	\begin{block}{The ELBO (Evidence Lower Bound): Parametric View}
+			\begin{equation*}
+			L(\lambda) = \E_{q_\lambda(z)} \bigg[ \log p(x,z) - \log q(z) \bigg]
+			\end{equation*}
+	
+	\end{block}
+	
+\pause
+%		
+		Traditionally, we optimize via coordinate-ascent (CAVI).
+			\begin{equation*}
+		\widehat{\lambda}_{t+1} = \widehat{\lambda}_t + \rho_t \nabla L( \widehat{\lambda_t})
+			\end{equation*}
+
+\pause
+	\begin{alertblock}{Problem: Each model's VI algorithm is\only<3>\footnote{if it exists} a snowflake.}
+		\begin{itemize}
+			\item Requires \textit{model-specific} computations %"a new paper for every model" exploiting model-specific facts, e.g. LDA.
+			\item Must pick a good $q$.  			
+			%\item May be intractable.
+		\end{itemize}
+	\end{alertblock}
+
