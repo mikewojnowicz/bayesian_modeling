@@ -16,9 +16,8 @@ The goal of this workshop is to introduce students to the concepts and practice 
 * [Why Bayes?](slides/why_bayes/bm_why_bayes.pdf)
 * [Bayesian Inference: Intro to Conjugacy](slides/intro_to_inference/bayes_intro.pdf)
 * [Bayesian Multivariate Normal](slides/mvn/bayesian_multivariate_normal/bm_multivariate_normal.pdf)
-* [Sampling and MCMC Methods]
+* [Sampling and MCMC Methods](slides/Sampling%20and%20MCMC%20Methods.pdf)
 * More soon...
-
 
 ## Exercises
 
