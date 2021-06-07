@@ -92,19 +92,19 @@ Maximum Likelihood (ML)  solutions tend to overfit.  Bayesian marginalization re
 \includegraphics[width=.7\textwidth]{images/occams_razor_a}
 \end{center}
 
-Models $y = f(x) + \epsilon$ of  various complexity  \tiny (polynomials of various order, $M$) \scriptsize were fit to 8 data points. 
+Models $y = f(x) + \epsilon$ of  various complexity  \tiny (polynomials of various order, $M$) \scriptsize were fit to 8 data points sampled from a quadratic model. 
 	\begin{itemize}
 	\scriptsize
-	\item  Plotted are  \blue{ML} polynomials \tiny (least squares fits to the data under Gaussian noise) \scriptsize and \darkgreen{posterior samples} from a Bayesian model \tiny (which used a Gaussian prior for the coefficients, and an inverse gamma prior on the noise). \scriptsize
-	\item The ML estimate can look very different from a typical sample from the posterior!  
+	\item  Plotted are  \blue{ML} polynomials \tiny (least squares fits to the data under Gaussian noise) \scriptsize and \green{posterior samples} from a Bayesian model \tiny (which used a Gaussian prior for the coefficients, and an inverse gamma prior on the noise). \scriptsize 
+	\item How would you compare them?  \pause  The ML estimate can look very different from a typical sample from the posterior!  
 	\end{itemize}
-\end{minipage}
-\hfill
+\end{minipage} 
+\hfill  \pause
 \begin{minipage}[t]{.47\textwidth}
 \begin{center}
 \includegraphics[width=.7\textwidth]{images/occams_razor_b}
 \end{center}
-The evidence is plotted as a function of model order.  Model orders M=0 to M=3 have considerably higher evidence than other model orders.  We see that Bayesian marginalization has reduced overfitting.  (The maximum likelihood model, the $M=7$ model, fits the data perfectly, but overfits wildly, predicting the function will shoot up or down between neighboring data points.) 
+The evidence is plotted as a function of model order.  Model orders M=0 to M=3 have considerably higher evidence than other model orders.  We see that Bayesian marginalization has reduced overfitting.   (The maximum likelihood model, the $M=7$ model, fits the data perfectly, but overfits wildly, predicting the function will shoot up or down between neighboring data points.) 
 \end{minipage}
 \vfill
 
@@ -202,12 +202,13 @@ We can encode this prior information using
 
 
 \begin{frame}{From prior to posterior}
-
+\scriptsize
+Suppose $Y=0$. How should we update our beliefs about $\theta$?
 \begin{center}
 \includegraphics[width=.75\textwidth]{images/hoff_fig1dot1_prior_posterior_shift}
 \end{center}
 
-\scriptsize
+
 \begin{minipage}{.45\textwidth}
 
 \begin{align*}
@@ -216,7 +217,7 @@ We can encode this prior information using
 \E[\theta]  = 0.09 &\\
 \text{mode}[\theta] =0.05 &\\
 P(\theta < 0.10) = 0.64 &\\
-P(0.05 < \theta < 0.20) = 0.66&  \\
+%P(0.05 < \theta < 0.20) = 0.66&  \\
 \end{align*}
 
 \end{minipage} \hfill
@@ -237,9 +238,11 @@ P(\theta < 0.10 \cond \set{Y=0} ) = 0.93 &\\
 
 
 \begin{frame}{Sensitivity analysis}
-Suppose we consider beliefs represented by $\Beta(a,b)$ distributions for $(a,b)$ other than $(2,20)$.   
-
+Suppose we consider beliefs represented by $\Beta(a,b)$ distributions for $(a,b)$ other than $(2,20)$.  
+ 
+\pause 
 If $\theta \sim \Beta(a,b)$,  then $\theta \cond Y=y \sim \Beta(a+y,  b+n-y)$.  
+\pause 
 
 The posterior expectation is
 
@@ -251,7 +254,7 @@ The posterior expectation is
 where $\theta_0 = a/(a+b)$ is the prior expectation of $\theta$ and $w=a+b$.
 \pause 
 
-So the posterior expectation is a compromise between the prior expectation $\theta_0$ and sample mean $\bar{y}$.  The weights on each depend on the sample size,  $n$,  and our prior confidence in this guess,  $w$. 
+\textit{Interpretation?} \pause The posterior expectation is a compromise between the prior expectation $\theta_0$ and sample mean $\bar{y}$.  The weights on each depend on the sample size,  $n$,  and our prior confidence in this guess,  $w$. 
 \end{frame}
 
 \begin{frame}{Sensitivity analysis}
@@ -329,19 +332,6 @@ Compared to the post-hoc ``adjustment" approach,  the Bayesian formalism provide
 
 \end{frame}
 
-\section{Conclusion}
-
-\begin{frame}{Summary}
-\textit{What are some advantages of the Bayesian approach?} \pause 
-\begin{itemize}
-\item Exploits prior knowledge {\tiny (previous results, reasonable values of data, etc.)} \pause 
-\item Automatic complexity control \pause 
-\item Immediate access to many inferential quantities of inference \pause 
-\item Natural (and more flexible) solutions to frequentist problems:  {\tiny (adjustments to confidence intervals, regularization, etc.) }  \pause 
-\item Can be easier in practice to extend to more complex models 
-\end{itemize}
-	
-\end{frame}
 
 \begin{frame}{Extensions: Hierarchical models}
 
@@ -352,6 +342,24 @@ Compared to the post-hoc ``adjustment" approach,  the Bayesian formalism provide
 \item Hierarchical regressions allow the prior expectation to be more strongly influenced by towns that are similar w.r.t. \text{relevant} characteristics,  such as size,  SES,  etc
 \end{itemize}
 \end{frame}
+
+
+\section{Conclusion}
+
+\begin{frame}{Summary}
+\textit{What are some advantages of the Bayesian approach?} \pause 
+\begin{itemize}
+\item Reduces overfitting \pause
+\item Automatic complexity control \pause 
+\item Exploits prior knowledge {\tiny (previous results, reasonable values of data, etc.)} \pause 
+\item Immediate access to many inferential quantities of inference \pause 
+\item Natural (and more flexible) solutions to frequentist problems:  {\tiny (adjustments to confidence intervals, regularization, etc.) }  \pause 
+\item Can be easier in practice to extend to more complex models 
+\end{itemize}
+	
+\end{frame}
+
+
 
 \begin{frame}{Utility for large datasets}
 
