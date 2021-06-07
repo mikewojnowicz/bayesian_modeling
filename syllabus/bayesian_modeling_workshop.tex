@@ -85,7 +85,7 @@ We present everything in here using conjugate models with closed-form posteriors
 
 \subsubsection{Methods}
 	\begin{itemize}
-	\item \textbf{Belief functions,  Bayes rule} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
+	\item \textbf{Bayes rule, belief functions} -- Sections 2.1,  2.2 of \cite{hoff2009first}.   \cite{ghahramani2013bayesian} briefly overviews the Bayesian framework.   For important mistakes in real life in medicine and law,  see \cite{guardianXXXXobscure}.  \textit{Why most published research findings are false} \cite{ioannidis2005most} provides nice additional motivation in science.    Could perhaps cover exchangeability here. 
 	\item \textbf{Exponential family techniques} - If time.  See \cite{wojnowiczXXXXexponential}.
 	\end{itemize}
 \subsubsection{Models}
@@ -114,10 +114,10 @@ We provide semi-conjugate formulations of the following models.  With such formu
 
 \begin{itemize}
 	\item \textbf{Bayesian multivariate normal} -  The Bayesian MVN can be semi-conjugate with a certain choice of prior. Section 7 of \cite{hoff2009first} covers this model.  The semi-conjugate formulation extends naturally to support imputation for missing data.  
-\item \textbf{Mixture models} - Brief presentation of Gaussian mixture models; will occur alongside CAVI.
-\item \textbf{Hidden markov models} -   We will probably need to skip this -- or make it super fast -- in the interest of time.   But might give brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.
 \item \textbf{Bayesian linear regression} -- Section 9 of \cite{hoff2009first}.     I have notes on this.   There are some nice slides here which also illustrate the use of kernels.\footnote{Nice Bayesian linear regression slides: \url{https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/slides/lec19-slides.pdf}}   Introduce model selection here as well (Section 9.3 of \cite{hoff2009first} or Section 3.4 of \cite{bishop2006pattern}).   Section 11.2.2 of \cite{davison2003statistical} also has a nice,  quick summary of Bayes factors for model comparison.   
 \item \textbf{Simple hierarchical models} - Section 11.4 of \cite{davison2003statistical} has a nice brief overview.    Hierarchical normal model (e.g. Gelman's 5 schools example).   Hierarchical linear regression (Chapter 13 of \cite{gelman2013bayesian},   Secs 11.1-11.3 of \cite{hoff2009first}.).  Figure 11.1 and 11.3 (right) of \cite{hoff2009first} nicely shows the beneficial effect of sharing statistical strength in a hierarchical linear regression,  as compared to many separate linear regressions.  
+\item \textbf{Mixture models} - Brief presentation of Gaussian mixture models; will occur alongside CAVI.
+\item \textbf{Hidden markov models} -   We will probably need to skip this -- or make it super fast -- in the interest of time.   But might give brief presentation of hidden markov models\footnote{Nice reference for frequentist HMM's: \url{http://jwmi.github.io/ASM/5-HMMs.pdf}}. May give short overview to probabilistic graphical models here.
 \end{itemize}
 
 \subsection{Non-conjugate models} \label{sec:non_conjugacy}
