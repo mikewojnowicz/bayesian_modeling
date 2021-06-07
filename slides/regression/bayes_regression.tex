@@ -290,7 +290,37 @@ For example, for a single covariate, the linear predictor $\eta_i := \E[y_i \con
 \[ \phi_m(x_i) = \exp \bigg\{ -\half \df{(x-\mu_m)^2}{s^2} \bigg\} \] 
 \end{itemize}
 \end{sblock}
+\end{frame}
 
+\begin{frame}{Radial basis function features}
+Example with radial basis function (RBF) features
+\[ \phi_m(x_i) = \exp \bigg\{ -\half \df{(x-\mu_m)^2}{s^2} \bigg\} \] 
+
+\begin{center}
+\includegraphics[width=.5\textwidth]{images/bishop_RBF_basis}	
+\end{center}
+
+\bottomtext{\hfill Image credit: Bishop, C. M. (2006). Pattern recognition and machine learning. Springer.}
+\end{frame}
+
+\begin{frame}{Radial basis function features}
+Functions sampled from posterior
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/bishop_RBF_posterior_samples}	
+\end{center}
+
+\bottomtext{\hfill Image credit: Bishop, C. M. (2006). Pattern recognition and machine learning. Springer.}
+\end{frame}
+
+\begin{frame}{Radial basis function features}
+
+\red{Warning}:  The model becomes very confident outside of the basis function centers {\scriptsize (clear from \eqref{eqn:posterior_bayesian_lin_regression_with_known_obs_var})}.
+
+\vfill 
+This behavior is generally undesirable. 
+\vfill 
+How to solve? \pause For flexible nonlinear regressions, it is more common to use \textit{Gaussian process} models. 
+	
 \end{frame}
 
 \begin{frame}{Prior specification}
