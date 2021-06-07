@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+## Description
 
-You can use the [editor on GitHub](https://github.com/mikewojnowicz/bayesian_modeling/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The goal of this workshop is to introduce students to the concepts and practice of Bayesian modeling.   We will begin by motivating Bayesian approaches.  Next,  we will introduce and apply models with conjugate priors,  such as Bayesian normal,  Bayesian binomial,  and Bayesian linear regression.   We will then introduce the two primary techniques for approximate Bayesian inference,  namely Markov Chain Monte Carlo (MCMC) and variational inference.    Using these techniques,  and in some cases clever trickery,  we will then tackle models for which there are not conjugate priors,  such as Bayesian logistic regression,  Bayesian multiclass regression,  Bayesian mixture models,  and Bayesian hidden Markov models.  Finally,  we will very briefly discuss Bayesian deep learning.    For applications,  we will use Python; namely,  a combination of  pymc3,  scikit-learn,  and code we write ourselves. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Instructors
 
-### Markdown
+* Dr. Michael Wojnowicz
+* Dr. Karin Knudson
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Syllabus
 
-```markdown
-Syntax highlighted code block
+[Syllabus](syllabus/bayesian_modeling_workshop.pdf)
 
-# Header 1
-## Header 2
-### Header 3
+## Slides
+* [Overview of Course](slides/overview_of_course/overview_of_course.pdf)
+* [Why Bayes?](slides/why_bayes/bm_why_bayes.pdf)
+* [Bayesian Inference: Intro to Conjugacy](slides/intro_to_inference/bayes_intro.pdf)
+* [Bayesian Multivariate Normal](slides/mvn/bayesian_multivariate_normal/bm_multivariate_normal.pdf)
+* [Sampling and MCMC Methods](slides/Sampling%20and%20MCMC%20Methods.pdf)
+* More soon...
 
-- Bulleted
-- List
+## Exercises
 
-1. Numbered
-2. List
+**Philosophy**
 
-**Bold** and _Italic_ and `Code` text
+Why have exercises as a part of the course, as opposed to just further lecture?
 
-[Link](url) and ![Image](src)
-```
+* Working actively with the material will help you to better understand it, find good questions to ask, 
+and be better prepared for the next sections.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Why have a lab as a part of the course, as opposed to just working on your own time? 
 
-### Jekyll Themes
+* Opportunity to collaborate in groups.
+* Get real-time feedback from instructors.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mikewojnowicz/bayesian_modeling/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+**Links to Exercises**
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+* [Intro to Bayesian Inference](https://colab.research.google.com/drive/1urZf1Aqnk5J8hBrJTYDkswZ9Q5_8gFC_) and [Solutions](https://colab.research.google.com/drive/1caHDfbpYrA3S6NsZsSpQ_5cGsam6LORZ?usp=sharing)
+* [Bayesian Multivariate Normal](https://colab.research.google.com/drive/14gonFUtSGcn8G3pApOEu-5YIaGk0swUQ#scrollTo=wsNeq0W17gDt)
+* [Sampling and MCMC Methods](https://colab.research.google.com/drive/1SGXi4w6_gPioqcgyMXhrBWLM78KyySHl?usp=sharing)
+* More soon...
