@@ -12,7 +12,7 @@ The goal of this workshop is to introduce students to the concepts and practice 
 [Syllabus](syllabus/bayesian_modeling_workshop.pdf)
 
 ## Slides
-
+* [Overview of Course](slides/overview_of_course/overview_of_course.pdf)
 * [Why Bayes?](slides/why_bayes/bm_why_bayes.pdf)
 * [Bayesian Inference: Intro to Conjugacy](slides/intro_to_inference/bayes_intro.pdf)
 * [Bayesian Multivariate Normal](slides/mvn/bayesian_multivariate_normal/bm_multivariate_normal.pdf)
