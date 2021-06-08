@@ -51,7 +51,7 @@ The evidence, or \textit{marginal likelihood}, can be used for model comparison.
 
 %%%%%%%%%
 
-\begin{frame}{Bayesian inference: conjugate example}
+\begin{frame}{Example: Beta-bernoulli model}
 Sometimes, we can compute the posterior distribution by hand, given prior and likelihood.
 
 \begin{sblock}{Setup: flipping a coin}
@@ -66,7 +66,7 @@ $$p(x | \theta) = \theta^x(1-\theta)^{1-x} $$.
 
 \end{frame}
 
-\begin{frame}{Bayesian inference: conjugate example}
+\begin{frame}{Example: Beta-bernoulli model}
 
 \begin{sblock}{Setup: flipping a coin}
 Probability that it lands heads is (unknown) $\theta$. \\
@@ -84,7 +84,7 @@ $$p(\theta| x) \propto p(x | \theta) p(\theta) = \theta^1(1-\theta)^{0}  \theta^
 
 %%%%%%%%%%%%%%%
 
-\begin{frame}{Bayesian inference: conjugacy}
+\begin{frame}{Conjugacy}
 
 \begin{sblock}{The idea}
 We have conjugacy when the prior and the posterior distributions are in the same family (e.g. in the previous example, the prior and posterior are beta distributions).
@@ -101,7 +101,7 @@ Conjugacy can be defined as follows \cite{gelman2013bayesian}. If $\mathcal{F}$ 
 
 %%%%%%%%%%%%%%
 
-\begin{frame}{Bayesian inference: Posterior predictive distribution}
+\begin{frame}{Posterior predictive distribution}
 
 \begin{sblock}{Given}
 
@@ -123,9 +123,84 @@ Incorporates the knowledge and uncertainty about $\theta$ that we still had afte
 
 \end{frame}
 
+\begin{frame}{Another example: The Gamma-Poisson model}
+
+Some measurements, such as a person's number of children or number of friends, have values that are whole numbers.    Perhaps the simplest probability model on whole numbers is the Poisson model.
+
+\begin{minipage}{.48\textwidth}
+\begin{itemize}
+\item \textbf{Sample}: $X$ the observed number.
+\item \textbf{Sample space}: $\mathcal{X} = \set{0,1,2,...}$
+\item \textbf{Density:}
+\begin{equation}
+p(x \cond \lambda) = \df{\lambda^x e^{-\lambda}}{x!} 
+\label{eqn:poisson_density}	 
+\end{equation}
+
+ \item \textbf{Parameter:} $\lambda = \E[X]$
+\item \textbf{Parameter space}: $\lambda \in (0,\infty)$ 
+
+\end{itemize}
+\end{minipage} \hfill 
+\begin{minipage}{.48\textwidth}
+
+\begin{center}
+\includegraphics[width=\textwidth]{images/hoff_poisson}	
+\scriptsize A Poisson distribution with mean $1.83$, along with the empirical distribution of the number of children of women of age 40 from the GSS during the 1990's
+\end{center}
+
+\end{minipage} 
+
+
+\end{frame}
+
+
+\begin{frame}{The Gamma-Poisson model}
+
+The Gamma distribution is a conjugate prior for the Poisson likelihood.  Can you show this?	 \pause 
+
+\begin{align*}
+p(\lambda) & \propto \lambda^{\alpha-1} e^{-\beta \lambda}  \\
+p(\+x \cond \lambda) & \stackrel{iid}{=} \ds\prod_{i=1}^n p(x_i \cond \lambda) \stackrel{\eqref{eqn:poisson_density}}\propto \lambda^{\sum_{i} x_i} e^{-n \lambda}  
+\intertext{so}
+p(\lambda \cond \+x) & \propto p(\+x \cond \lambda) p(\lambda) \\
+&=  \lambda^{(\alpha + \sum_i x_i)-1} e^{-(\beta +n) \lambda} 
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{The Gamma-Poisson model}
+
+That is, 
+\begin{align*}
+\lambda & \sim \text{Gamma} (\alpha, \beta)\\
+x_i \cond \lambda & \iid \text{Poisson}(\lambda) \\
+\implies \lambda \cond \+x &\sim \text{Gamma}(\alpha + \sum_{i=1}^n x_i, \beta + n)
+\end{align*}
+
+\end{frame}
+
+\begin{frame}{Interpretation}
+Can you write the posterior expectation as a compromise between the prior expectation and sample mean {\tiny (like we did for the Beta-bernoulli model)}?  \pause 
+
+\begin{align*}
+\E[\lambda] &= \df{\alpha}{\beta} && \tinytext{Gamma dist.} \\
+\E[\lambda \cond \+x] &= \df{\alpha + \sum_{i=1}^n x_i}{\beta +n} && \tinytext{Gamma dist.} \\
+&= \df{\beta}{\beta+n} \; \explaintermbrace{prior expectation}{\df{\alpha}{\beta}} \; +\; \df{n}{\beta+n} \;  \explaintermbrace{sample mean}{\df{\sum_{i=1}^n x_i}{n}}
+\end{align*}
+
+\textit{Interpretation?} \pause 
+\begin{itemize}
+	\item $\beta$: number of prior observations
+	\item $\alpha$: sum of counts from $\beta$ prior observations
+\end{itemize}
+
+	
+\end{frame}
+
 %%%%%%%%%%%%%%%
 
-\begin{frame}{Bayesian inference: tractability notes}
+\begin{frame}{Tractability notes}
 
 Generally, computing the posterior distribution is much harder than in this example!
 \vfill
