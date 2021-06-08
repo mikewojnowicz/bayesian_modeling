@@ -180,7 +180,7 @@ x_i \cond \lambda & \iid \text{Poisson}(\lambda) \\
 
 \end{frame}
 
-\begin{frame}{Interpretation}
+\begin{frame}{Gamma-Poisson Model: Posterior Expectation}
 Can you write the posterior expectation as a compromise between the prior expectation and sample mean {\tiny (like we did for the Beta-bernoulli model)}?  \pause 
 
 \begin{align*}
@@ -198,6 +198,17 @@ Can you write the posterior expectation as a compromise between the prior expect
 	
 \end{frame}
 
+\begin{frame}{Gamma-Poisson Model: Posterior Predictive}
+
+The posterior predictive for the Gamma Poisson is given by 
+\[ x_{\text{new}} \sim \text{NegativeBinomial}\bigg(\alpha', \df{1}{1+\beta'} \bigg) \]	
+where $(\alpha', \beta')$ are the posterior parameters of the Gamma.
+\vfill 
+The Negative Binomial is a \textit{two-parameter} alternative to the Poisson model which provides a flexible model of count data {\tiny (e.g., it can handle overdispersion)} 
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%
 
 \begin{frame}{Tractability notes}
@@ -210,6 +221,31 @@ In nonconjugate examples, we need approaches to work with the posterior distribu
 
 \end{frame}
 
+%%%%%%%%%%%%%%%
+\begin{frame}{Exponential families}
+
+The bernoulli and the Poisson distributions are both \blue{\href{https://github.com/mikewojnowicz/exponential_family/blob/297dde8bf81b09544b66f3b80324db44bc601358/exponential_family.pdf}{exponential families.}}
+ 
+\metroset{block=fill}
+\begin{block}{Exponential family}
+An \textit{exponential family} is a set of probability distributions whose probability density functions have the following form
+\begin{align*}
+\label{eqn:exponential_family}
+ p(x \cond \theta) = h(x) \exp \{ \eta(\theta)^T t(x) - a(\theta)\} 
+\end{align*}
+where we refer to $h$ as the base measure, $\eta$ as the natural parameter, $t$ as the sufficient statistics, and $a$ as the log normalizer. 
+\end{block}
+
+\pause 
+\begin{sblock}{Why do we care?}
+ \pause 
+\begin{itemize}
+\item \textit{Any} probability model in the exponential family has a \blue{\href{https://en.wikipedia.org/wiki/Conjugate_prior}{conjugate prior.}} \pause 
+\item When the conjugate prior is used, you get the posterior and posterior predictive in \alert{closed form}! 
+\end{itemize}
+\end{sblock}
+
+\end{frame}
 
 
 %%%%%%%%%
