@@ -1,0 +1,3 @@
+[submodule "notes/exponential_family"]
+	path = notes/exponential_family
+	url = https://github.com/mikewojnowicz/exponential_family.git
