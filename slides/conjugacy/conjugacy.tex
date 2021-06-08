@@ -27,6 +27,26 @@
 
 
 
+\begin{frame}{Bayes' Rule}
+\footnotesize
+
+\begin{sblock}{Bayes' Rule}
+\[ \underset{posterior}{p(\theta|x)} = \df{ \underset{likelihood}{p(x|\theta)} \quad  \underset{prior}{p(\theta)} }{ \underset{evidence}{p(x)}}  = \dfrac{p(x | \theta) p(\theta)}{\int p(x | \theta) p(\theta) \, d\theta}  \]
+\end{sblock}
+
+\begin{sblock}{Posterior}
+The posterior distribution is proportional to the prior times the likelihood:
+\[p(\theta | x) \propto p(x | \theta) p(\theta)\]
+
+The posterior distribution \textit{is a distribution} over $\theta$.
+
+\end{sblock}
+
+\begin{sblock}{Evidence}
+The evidence, or \textit{marginal likelihood}, can be used for model comparison.
+\end{sblock}
+
+\end{frame}
 
 
 %%%%%%%%%
@@ -79,18 +99,6 @@ Conjugacy can be defined as follows \cite{gelman2013bayesian}. If $\mathcal{F}$ 
 \end{frame}
 
 
-%%%%%%%%%%%%%%%
-
-\begin{frame}{Bayesian inference: tractability notes}
-
-Generally, computing the posterior distribution is much harder than in this example!
-\vfill
-Consider the denominator in $ p(\theta | x) = \dfrac{p(x | \theta) p(\theta)}{\int p(x | \theta) p(\theta)} \, d\theta $  - integrals are hard 
-\vfill
-In nonconjugate examples, we need approaches to work with the posterior distribution when we cannot calculate it directly. Stay tuned!
-
-\end{frame}
-
 %%%%%%%%%%%%%%
 
 \begin{frame}{Bayesian inference: Posterior predictive distribution}
@@ -114,6 +122,20 @@ Incorporates the knowledge and uncertainty about $\theta$ that we still had afte
 \end{sblock}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%
+
+\begin{frame}{Bayesian inference: tractability notes}
+
+Generally, computing the posterior distribution is much harder than in this example!
+\vfill
+Consider the denominator in $ p(\theta | x) = \dfrac{p(x | \theta) p(\theta)}{\int p(x | \theta) p(\theta)} \, d\theta $  - integrals are hard 
+\vfill
+In nonconjugate examples, we need approaches to work with the posterior distribution when we cannot calculate it directly. Stay tuned!
+
+\end{frame}
+
+
 
 %%%%%%%%%
 
