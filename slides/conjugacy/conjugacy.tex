@@ -16,7 +16,7 @@
 \newcommand{\y}{Y}
 
 
-\title{Bayesian Inference: Intro via Conjugacy}
+\title{Bayesian Inference: Conjugate Models}
 
 \begin{document}
 
@@ -66,13 +66,14 @@ $$p(x | \theta) = \theta^x(1-\theta)^{1-x} $$.
 
 \end{frame}
 
-\begin{frame}{Example: Beta-bernoulli model}
+\begin{frame}{Example: Beta-Bernoulli model}
 
 \begin{sblock}{Setup: flipping a coin}
 Probability that it lands heads is (unknown) $\theta$. \\
 Prior probability over $\theta$ assumed to follow a $Beta(3,3)$ distribution:
 $$ p(\theta) = \frac{\theta^{3-1}(1-\theta)^{3-1}}{B(3,3)}$$
-Note: $\theta \sim Beta(a, b)$ means $p(\theta) \propto \theta^{a-1}(1-\theta)^{b-1}$\\
+{\tiny Note: $\theta \sim Beta(a, b)$ means $p(\theta) = \frac{1}{B(a,b)}\theta^{a-1}(1-\theta)^{b-1}$, where $B(a,b):= \frac{\Gamma(a) \Gamma(b)}{\Gamma(a+b)}.$}
+\vfill 
 Will collect data by flipping coin once. Likelihood of observing heads ($x=1$) or tails ($x=0$) is given by a Bernoulli distribution:
 $$p(x | \theta) = \theta^x(1-\theta)^{1-x} $$.
 \end{sblock}
@@ -183,7 +184,7 @@ x_i \cond \lambda & \iid \text{Poisson}(\lambda) \\
 \end{frame}
 
 \begin{frame}{Gamma-Poisson Model: Posterior Expectation}
-Can you write the posterior expectation as a compromise between the prior expectation and sample mean {\tiny (like we did for the Beta-bernoulli model)}?  \pause 
+Can you write the posterior expectation as a compromise between the prior expectation and sample mean {\tiny (like we did for the Beta-Bernoulli model)}?  \pause 
 
 \begin{align*}
 \E[\lambda] &= \df{\alpha}{\beta} && \tinytext{Gamma dist.} \\
@@ -200,6 +201,17 @@ Can you write the posterior expectation as a compromise between the prior expect
 	
 \end{frame}
 
+\begin{frame}{Selecting a prior}
+
+The previous slide gives us one way to specify the prior distribution: 
+
+\begin{center}
+\includegraphics[width=.75\textwidth]{images/hoff_gamma}	
+\end{center}
+
+``My prior belief is that the average count in the population is $\frac{\alpha}{\beta}$, and I am as certain about this as if I had observed this in a sample of size $\beta$."
+\end{frame}
+
 \begin{frame}{Gamma-Poisson Model: Posterior Predictive}
 
 The posterior predictive for the Gamma Poisson is given by 
@@ -208,6 +220,9 @@ where $(\alpha', \beta')$ are the posterior parameters of the Gamma.
 \vfill 
 The Negative Binomial is a \textit{two-parameter} alternative to the Poisson model which provides a flexible model of count data {\tiny (e.g., it can handle overdispersion)} 
 \end{frame}
+
+
+
 
 
 
@@ -226,7 +241,7 @@ In nonconjugate examples, we need approaches to work with the posterior distribu
 %%%%%%%%%%%%%%%
 \begin{frame}{Exponential families}
 
-The bernoulli and the Poisson distributions are both \blue{\href{https://github.com/mikewojnowicz/exponential_family/blob/297dde8bf81b09544b66f3b80324db44bc601358/exponential_family.pdf}{exponential families.}}
+The Bernoulli and the Poisson distributions are both \blue{\href{https://github.com/mikewojnowicz/exponential_family/blob/297dde8bf81b09544b66f3b80324db44bc601358/exponential_family.pdf}{exponential families.}}
  
 \metroset{block=fill}
 \begin{block}{Exponential family}
