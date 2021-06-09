@@ -159,12 +159,14 @@ p(x \cond \lambda) = \df{\lambda^x e^{-\lambda}}{x!}
 
 The Gamma distribution is a conjugate prior for the Poisson likelihood.  Can you show this?	 \pause 
 
+Given observations $\+x = (x_1, ..., x_n)$, we have
+
 \begin{align*}
-p(\lambda) & \propto \lambda^{\alpha-1} e^{-\beta \lambda}  \\
-p(\+x \cond \lambda) & \stackrel{iid}{=} \ds\prod_{i=1}^n p(x_i \cond \lambda) \stackrel{\eqref{eqn:poisson_density}}\propto \lambda^{\sum_{i} x_i} e^{-n \lambda}  
+p(\lambda) & \propto \lambda^{\labeledbluebox{}{$\alpha$}-1} \exp \big\{-\labeledgreenbox{}{$\beta$} \lambda \big\}  \\
+p(\+x \cond \lambda) & \stackrel{iid}{=} \ds\prod_{i=1}^n p(x_i \cond \lambda) \\ & \stackrel{(Poisson)}\propto \lambda^{\labeledbluebox{}{$\sum_{i=1}^n x_i$}} \exp \big\{-\labeledgreenbox{}{$n$} \lambda \big\}
 \intertext{so}
 p(\lambda \cond \+x) & \propto p(\+x \cond \lambda) p(\lambda) \\
-&=  \lambda^{(\alpha + \sum_i x_i)-1} e^{-(\beta +n) \lambda} 
+&=  \lambda^{\labeledbluebox{}{($\alpha + \sum_i x_i$)}-1} \exp \big\{ -\labeledgreenbox{}{($\beta +n$)}\lambda \big\} 
 \end{align*}
 
 \end{frame}
