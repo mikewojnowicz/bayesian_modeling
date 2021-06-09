@@ -63,6 +63,71 @@
 
 \section{Conjugate inference}
 
+%%%%%%%%%%%%%%%
+\begin{frame}{Review: Exponential families}
+
+We have observed that the Bernoulli and the Poisson distributions are both \blue{\href{https://github.com/mikewojnowicz/exponential_family/blob/297dde8bf81b09544b66f3b80324db44bc601358/exponential_family.pdf}{exponential families.}}
+ 
+\metroset{block=fill}
+\begin{block}{Exponential family}
+An \textit{exponential family} is a set of probability distributions whose probability density functions have the following form
+\begin{align*}
+\labelit \label{eqn:exponential_family}
+ p(x \cond \theta) = h(x) \exp \{ \eta(\theta)^T t(x) - a(\theta)\} 
+\end{align*}
+where we refer to $h$ as the base measure, $\eta$ as the natural parameter, $t$ as the sufficient statistics, and $a$ as the log normalizer. 
+\end{block}
+\end{frame}
+
+\begin{frame}{Multivariate normal is an exponential family} 
+We can write the density of a \blue{\href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution}{multivariate normal}} $\N(\+\mu, \+\Sigma)$ distribution in exponential form. \textit{(Try it!)}\pause 
+\scriptsize
+\begin{align*}
+& p(\+x \cond \+\mu, \+\Sigma) = (2\pi)^{-d/2} |\+\Sigma |^{-1/2} \exp \bigg\{ -\half (\+x - \+\mu)^T \+\Sigma^{-1} (\+x - \+\mu) \bigg\}  \\
+& = (2\pi)^{-d/2} \exp \bigg\{ -\half \explaintermbrace{$\redmathbox{-\half \vectorize (\+\Sigma^{-1})}^T \greenmathbox{\vectorize (\+x\+x^T)} $}{\+x^T \+\Sigma^{-1} \+x} + \redmathbox{(\Sigma^{-1} \+\mu)}^T \greenmathbox{\+x} \bluemathbox{-\half \+\mu^T \+\Sigma^{-1} \+\mu + \half \log |\+\Sigma^{-1} |} \bigg\} 
+\labelit \label{eqn:mvn_as_ef} 
+\intertext{\tiny \hfill Note: the underbrace representation is given by $\+x^T \+\Sigma^{-1} \+x = \tr (\+x^T \+\Sigma^{-1} \+x) = \tr (\+\Sigma^{-1} \+x \+x^T) =\vectorize (\+\Sigma^{-1})^T \vectorize (\+x\+x^T)$. } 
+\end{align*} 
+%\footnote{Recall $\tr(\+A\+B) = \vectorize (\+A)^T \vectorize (\+B)$.}  
+\pause 
+\begin{itemize}
+\item \textbf{Natural parameter}: $\eta(\+\mu, \+\Sigma) = \redmathbox{\big(-\half \vectorize (\+\Sigma^{-1}) , \,  \+\Sigma^{-1} \+\mu \big)} $, \item \textbf{Sufficient statistics}: $t(\+x) = \greenmathbox{\big(\vectorize (\+x \+x^T), \+x \big)}$, 
+\item \textbf{Log normalizer}: $a(\+\mu, \+\Sigma) =  \bluemathbox{-\half \+\mu \+\Sigma^{-1} \+\mu + \half \log |\+\Sigma^{-1} |} $. 
+\item \textbf{Base measure}: $h(x) = (2\pi)^{-d/2}$ 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Qualitative points}
+	
+\metroset{block=fill}
+\begin{block}{The natural parametrization of the MVN}
+From Equation \eqref{eqn:mvn_as_ef}, we see that that the natural parameters of the MVN are 
+\begin{itemize}
+\item  the \textit{precision} $\+\Sigma^{-1}$ , and 
+\item the \textit{precision-weighted mean} $\+\Sigma^{-1} \+\mu$. 
+\end{itemize}
+\end{block}
+
+\vfill 
+
+\metroset{block=fill}
+\begin{block}{Are you exponentiating a quadratic?}
+We also see that if a random vector $\+x$ has a density on $\R^d$ that satisfies
+ \[ p(\+x) \propto \exp \{ -\half \+x^T \+A \+x + \+x^T \+b\} \] 
+ for some matrix $\+A$ and vector $\+b$, then $\+x$ must be multivariate normal with covariance $\+A^{-1}$ and mean $\+A^{-1}\+b$. 
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=.8\textwidth]{images/are_you_exponentiating_a_quadratic}	
+\end{center}
+
+\end{frame}
+
+		
+
+
 \begin{frame}{A conjugate prior}
 \red{TODO: Fill in}
 \end{frame}
