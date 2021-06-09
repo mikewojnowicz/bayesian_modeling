@@ -163,11 +163,11 @@ The Gamma distribution is a conjugate prior for the Poisson likelihood.  Can you
 Given observations $\+x = (x_1, ..., x_n)$, we have
 
 \begin{align*}
-p(\lambda) & \propto \lambda^{\bluebox{$\alpha$}-1} \exp \big\{-\greenbox{$\beta$} \lambda \big\}  \\
-p(\+x \cond \lambda) & \stackrel{iid}{=} \ds\prod_{i=1}^n p(x_i \cond \lambda) \\ & \stackrel{(Poisson)}\propto \lambda^{\bluebox{$\sum_{i=1}^n x_i$}} \exp \big\{-\greenbox{$n$} \lambda \big\}
+p(\lambda) & \propto \lambda^{\bluemathbox{\alpha}-1} \exp \big\{-\greenmathbox{\beta} \lambda \big\}  \\
+p(\+x \cond \lambda) & \stackrel{iid}{=} \ds\prod_{i=1}^n p(x_i \cond \lambda) \\ & \stackrel{(Poisson)}\propto \lambda^{\bluemathbox{\sum_{i=1}^n x_i}} \exp \big\{-\greenmathbox{n} \lambda \big\}
 \intertext{so}
 p(\lambda \cond \+x) & \propto p(\+x \cond \lambda) p(\lambda) \\
-&=  \lambda^{\bluebox{($\alpha + \sum_i x_i$)}-1} \exp \big\{ -\greenbox{($\beta +n$)}\lambda \big\} 
+&=  \lambda^{\bluemathbox{(\alpha + \sum_i x_i)}-1} \exp \big\{ -\greenmathbox{(\beta +n)}\lambda \big\} 
 \end{align*}
 
 \end{frame}
