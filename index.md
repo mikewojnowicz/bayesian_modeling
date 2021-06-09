@@ -17,6 +17,7 @@ The goal of this workshop is to introduce students to the concepts and practice 
 * [Bayesian Inference: Intro to Conjugacy](slides/conjugacy/conjugacy.pdf)
 * [Sampling and MCMC Methods](slides/Sampling%20and%20MCMC%20Methods.pdf)
 * [Bayesian Multivariate Normal](slides/mvn/bayesian_multivariate_normal/bm_multivariate_normal.pdf)
+* [Bayesian Linear Regression](slides/regression/bayes_regression)
 * More soon...
 
 ## Exercises
