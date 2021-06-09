@@ -23,7 +23,7 @@
 
 
 \section{Overview}
-
+\subsection{Motivations}
 \begin{frame}{Some motivations for the normal}
 
 \begin{figure}
@@ -51,19 +51,17 @@
 	\item Problem can be especially bad in certain contexts {\tiny ( e.g., small data, high-dimensions, missing data)}
 	\item Spherical prior provides regularization	\item Posterior still asymptotically concentrates around maximum likelihood (ML) solution
 	\end{itemize} \pause 
-\item Inference is no harder than for frequentist models
+\item Inference can be as easy or easier than in frequentist models
 	\begin{itemize}
-	\item Easy, cheap updates {\scriptsize (a conjugate prior exists)}
+	\item Easy, cheap updates {\scriptsize (esp. when using a conjugate prior)}
 	\item Supports online learning 	
 	\item Fits nicely in more complex models	
-	\item Nice hyperparameter interpretation
+	%\item Nice hyperparameter interpretation
 	\end{itemize}
 \end{itemize}	
 \end{frame}
 
-\section{Conjugate inference}
-
-%%%%%%%%%%%%%%%
+\subsection{Building blocks}
 \begin{frame}{Review: Exponential families}
 
 We have observed that the Bernoulli and the Poisson distributions are both \blue{\href{https://github.com/mikewojnowicz/exponential_family/blob/297dde8bf81b09544b66f3b80324db44bc601358/exponential_family.pdf}{exponential families.}}
@@ -118,18 +116,80 @@ We also see that if a random vector $\+x$ has a density on $\R^d$ that satisfies
 \end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Self-help guide for deriving Gibbs samplers}
 \begin{center}
 \includegraphics[width=.8\textwidth]{images/are_you_exponentiating_a_quadratic}	
 \end{center}
 
 \end{frame}
 
-		
+\begin{frame}{Inverse Wishart Distribution}
+The Inverse Wishart is a distribution on symmetric,  positive definite matrices.     The Inverse Wishart distribution,  denoted $\InverseWishart(\nu, \+\Psi)$,  has density
+
+\begin{align}
+p(\+\Sigma) \propto | \+\Sigma|^{-(\nu+d +1) /2}  \exp \bb{ -\df{1}{2} \tr ( \+\Sigma^{-1} \+\Psi) } 
+\label{eqn:inverse_wishart_density}
+\end{align}
+where $\+\Sigma \succ 0$ and $\nu > d-1$ to have a proper prior.     The expected value of an Inverse Wishart random variable parametrized as in \eqref{eqn:inverse_wishart_density} is given by $\E[\+\Sigma] = \frac{\+\Psi}{\nu -d -1}$.   
+
+\metroset{block=fill}
+\begin{block}{Interpreting the parameters of the Inverse Wishart}
+Note that the parameters of the Inverse Wishart can be interpreted {\tiny (as per conjugacy; we will see this below) } in the following way: the covariance was estimated from $\nu$ observations with a residual sum of squares (a.k.a.  sum of pairwise deviation products) $\+\Psi$. 
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{Inverse Wishart Distribution}
+
+\vfill 
+\begin{center}
+\includegraphics[width=.7\textwidth]{images/inverse_wishart_samples}
+\end{center}
+\vfill 
+\bottomtext{\hfill Image Credit: Michael Hughes, Tufts University}
+
+\end{frame}
+
+\begin{frame}{Sampling from the Inverse Wishart}
+A sample $\+\Sigma$ from the $\InverseWishart(\nu, \+\Psi)$ distribution  can be obtained by the following scheme:
+
+\begin{enumerate}
+\item Sample $\+z_1, ..., \+z_{\nu} \iid \N (\+0,  \+\Psi^{-1})$
+\item Calculate $\+Z^T \+Z = \sum_{i=1}^\nu \+z_i \+z_i^T$.
+\item Set $\+\Sigma = ( \+Z^T \+Z )^{-1}$.
+\end{enumerate}
+The intuition is that the Inverse Wishart models covariance matrices as an inverse sum of squares.
+\end{frame}
+
+%%%%%%%%%%%%%%%		
+\section{Conjugate inference}
 
 
-\begin{frame}{A conjugate prior}
-\red{TODO: Fill in}
+
+\begin{frame}{A fully conjugate formulation}
+
+Since the MVN is an EF, we can form a fully conjugate model.
+
+\metroset{block=fill}
+\begin{block}{Fully conjugate Bayesian MVN {\tiny (has \alert{closed-form} posteriors and predictive posteriors!)} }
+Given observations $\+x := (\+x_1,  \hdots \+x_N)$,  where each $\+x_i \in \R^d$, we take
+
+\metroset{block=fill}
+\begin{align*}
+\+\mu, \+\Sigma &\sim \NIW_d(\alpha_0, \+\mu_0, \nu_0, \+\Psi_0 )  \\
+\+x_i \cond \+\mu,  \+\Sigma &\iid \N_{d}( \+\mu , \+\Sigma), \quad i=1,...,N
+\end{align*}
+\end{block}
+
+\begin{block}{The Normal-Inverse-Wishart prior}
+	\begin{align*}
+\+\mu, \+\Sigma &\sim \NIW_d(\alpha_0, \+\mu_0, \nu_0, \+\Psi_0 ) 
+\intertext{which means}
+\+\Sigma &\sim \InverseWishart_d(\nu_0,  \+\Psi_0) \\
+\+\mu \cond \+\Sigma &\sim \N_d(\+\mu_0, \frac{1}{\alpha_0} \Sigma )
+\end{align*}
+\end{block}
+
 \end{frame}
 
 \begin{frame}{Application: Modeling typing dynamics}
