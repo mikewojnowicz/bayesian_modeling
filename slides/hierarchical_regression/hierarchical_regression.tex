@@ -133,7 +133,7 @@ y_{ij}  &\indsim \N(\+\beta_j^T \+x_{ij} , \sigma^2)
 \end{frame}
 
 \begin{frame}{Inference on group-specific regression weights}
-\alert{Key Insight}: This part of the model behaves like a Bayesian linear regression model,    but where the ``prior" mean and variance becomes the ``empirical" mean and variance of the (latent) regression weights,  $\+\beta_1, ...,\+\beta_J$ across groups. 
+\alert{Key Insight}: This part of the model behaves like a Bayesian linear regression model,    but where the ``prior" mean and variance becomes the mean and variance of $\+\beta_1, ...,\+\beta_J$, the regression weights    across groups. 
 
 \begin{align*}
 \+\beta_j \cond \+\Sigma,  \+\mu, \sigma^2,  \+y & \sim  \N(\+\mu_j^\prime,  \+\Sigma_j^\prime) \\
@@ -165,7 +165,7 @@ In standard BLR, the updates on the regression weights are given by
 
 \begin{align*}
 \sigma^2 \cond \+\beta_1, ...,\+\beta_J,  \+y & \sim \InverseGamma
-\bigg( \half (\nu_0 + N),  \half (\nu_0 \sigma_0^2 + \text{SSR}(\+\beta)\bigg)\\ 
+\bigg( \half (\nu_0 + N),  \half \big(\nu_0 \sigma_0^2 + \text{SSR}(\+\beta) \big) \bigg)\\ 
 N &:= \sum_{j=1}^J n_j \\
 \text{SSR(\+\beta)} &:= \ds\sum_{j=1}^J \ds\sum_{i=1}^{n_j}  (y_{ij} - \+\beta_j^T \+x_{ij})^2 \\
 \end{align*}	
