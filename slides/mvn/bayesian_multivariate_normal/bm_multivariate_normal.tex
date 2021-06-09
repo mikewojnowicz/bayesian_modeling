@@ -271,9 +271,24 @@ These complete conditionals have nice interpretations:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Complete conditionals: Proof}
+\begin{frame}{Complete conditionals: Proof for $\+\mu$}
+\scriptsize 
+First,  we consider the likelihood $L(\+\beta) := p(\+y \cond \+\beta,  \sigma^2$),  dropping terms proportional to  $\+\beta$.
+\begin{align*}
+p(\+y \cond \+\beta,  \sigma^2) & \propto  \exp \bigg\{  -\df{1}{2 \sigma^2}  (\+y - \+X \+\beta)^T (\+y - \+X \+\beta) \bigg\} \\ 
+&=   \exp \bigg\{  -\df{1}{2 \sigma^2}  (- 2 \+\beta^T \+X^T \+y + \+\beta^T \+X^T \+X \+\beta) \bigg\} \\ 
+\end{align*}
+Doing the same for the prior $p(\+\beta)$,  we have 
+\begin{align*}
+p(\+\beta) & \propto  \exp \bigg\{  -\df{1}{2}  (- 2 \+\beta^T \+\Sigma_0 \+\mu_0 + \+\beta^T \+\Sigma_0^{-1} \+\beta) \bigg\} \\ 
+\end{align*}
+\textit{Can you finish the proof?} \pause  By Bayes rule
+\begin{align*}
+p(\+\beta \cond  \+y ,  \sigma^2 ) & \propto  p(\+y \cond \+\beta,  \sigma^2) \times p(\+\beta)  \\
+& \propto  \exp \bigg\{   \+\beta^T \explaintermbrace{$:=\+b$}{\bigg(\+\Sigma_0^{-1} \+\mu_0 +  \frac{1}{\sigma^2}\+X^T \+y \bigg)} - \half \+\beta^T   \explaintermbrace{$:=\+A$}{\bigg(\+\Sigma_0^{-1}  +  \frac{1}{\sigma^2} \+X^T \+X \bigg)}  \+\beta \bigg\}
+\end{align*}
 
-See exponential family notes. 
+which reveals that the posterior is normal (\alert{remember Jimi!}),  along with the particular form of its parameter  (covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$).  
 
 \end{frame}
 	
