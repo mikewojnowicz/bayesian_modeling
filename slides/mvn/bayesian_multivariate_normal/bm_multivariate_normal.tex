@@ -289,14 +289,14 @@ Semi-conjugate (sometimes called conditionally-conjugate) models can be defined 
 
 \scriptsize We use the exponential family representation of the MVN  to represent the prior in terms of its natural parameters
 \begin{align*}
-	p(\+\mu) &\propto \exp \bigg\{ -\half \+\mu^T \+V_0^{-1} \+\mu + \+\mu^T \+V_0^{-1} \+m_0 \bigg\} 
+	p(\+\mu) &\propto \exp \bigg\{ -\half \+\mu^T \bigg( \explaintermbrace{prior precision}{\+V_0^{-1}} \bigg) \+\mu + \+\mu^T \bigg(\explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0}  \bigg) \bigg\} 
 \labelit \label{eqn:prior_for_mvn_fixed_cov}
 \end{align*}
 
 And similarly, we write the likelihood $	L(\+\mu) = p(\+y \cond \+\mu) = \prod_{i=1}^n p(\+y_i \cond \+\mu)$  as
 \begin{align*}
 	L(\+\mu) &\propto \exp \bigg\{ -\half \ds\sum_{i=1}^n (\+x_i - \+\mu)^T \+\Sigma^{-1} (\+x_i - \+\mu)\bigg\}  \\
-	&= \exp \bigg\{ - \half \+\mu^T n \+\Sigma^{-1} \+\mu + \+\mu^T \+\Sigma^{-1} n \bar{\+x} \bigg\} 
+	&= \exp \bigg\{ - \half \+\mu^T \bigg(\explaintermbrace{data precision}{n \+\Sigma^{-1}}\bigg) \+\mu + \+\mu^T \bigg(\explaintermbrace{data precision-weighted mean}{\+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
 \labelit \label{eqn:likelihood_for_mvn_fixed_cov}
 \end{align*}
 
@@ -305,35 +305,16 @@ And similarly, we write the likelihood $	L(\+\mu) = p(\+y \cond \+\mu) = \prod_{
 By Bayes' law, and combining like terms,
 \begin{align*}
  p(\+\mu \cond \+x, \+\Sigma) &\propto \explaintermbrace{prior}{p(\+\mu)}\explaintermbrace{likelihood}{p(\+x \cond \+\mu, \+\Sigma)} \\
- &= \exp \bigg\{ - \half \+\mu^T \bigg( \explaintermbrace{$:=\+A$}{\+V_0^{-1} + n  \+\Sigma^{-1}}\bigg)  \+\mu + \+\mu^T \bigg( \explaintermbrace{$:=\+b$}{\+V_0 \+m_0 + \+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
+ &= \exp \bigg\{ - \half \+\mu^T \bigg( \explaintermbrace{posterior precision}{\+V_0^{-1} + n  \+\Sigma^{-1}}\bigg)  \+\mu + \+\mu^T \bigg( \explaintermbrace{posterior precision-weighted mean}{\+V_0 \+m_0 + \+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
 \end{align*}
 which reveals that the posterior is normal,  along with the particular form of its parameter  (covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$). 
 
 \end{frame}
 
 	
-\begin{frame}{Complete conditionals for the Bayesian MVN}
-	
-We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
-\footnotesize 
-\begin{align*}
-\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
-\intertext{where}
-\+V &= \bp{\explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{N \+\Sigma^{-1}} }^{-1} \\
-\+m  &=  \+V  \bp{\explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{N \+\Sigma^{-1}  \bar{\+x}} } 
-\intertext{and}
-\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
-%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
-\intertext{where}
-\nu &=  \nu_0 + N \\
-\+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
-%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
-\end{align*}
-\end{frame}
 
 \begin{frame}{Complete conditionals for the Bayesian MVN}
-	
-We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
+The complete conditions under natural parametrization
 \footnotesize 
 \begin{align*}
 \+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
@@ -361,6 +342,25 @@ These complete conditionals have nice interpretations:
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Gibbs Sampler {\scriptsize (in standard parametrization)}}
+	
+We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
+\footnotesize 
+\begin{align*}
+\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
+\intertext{where}
+\+V &= \bp{\explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{N \+\Sigma^{-1}} }^{-1} \\
+\+m  &=  \+V  \bp{\explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{N \+\Sigma^{-1}  \bar{\+x}} } 
+\intertext{and}
+\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
+%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
+\intertext{where}
+\nu &=  \nu_0 + N \\
+\+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
+%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
+\end{align*}
+\end{frame}
 
 	
 	
