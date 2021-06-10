@@ -274,9 +274,11 @@ Semi-conjugate (sometimes called conditionally-conjugate) models can be defined 
 \usebackgroundtemplate{%
 \tikz\node[opacity=0.3] {\includegraphics[height=\paperheight,width=\paperwidth]{images/hearts_and_cupid}};}
 	\begin{frame}{We {\red \heart} semi-conjugacy}	 
-	 Why are semi-conjugate models of interest?  
+	 In general, semi-conjugate models do not have closed-form posteriors.  
 	 \vfill 
-	 The posterior distributions for conditionally conjugate models are easily approximated 
+	 Why are they of interest?  \pause 
+	 \vfill 
+	 The posterior distributions are easily approximated 
 	 \begin{itemize}
 	 \item with \textbf{Gibbs sampling}, by sampling from the complete conditionals
 	 \item with \textbf{mean-field variational inference}, by taking variational expectations of the natural parameters of the complete conditional.	
@@ -307,7 +309,7 @@ By Bayes' law, and combining like terms,
  p(\+\mu \cond \+x, \+\Sigma) &\propto \explaintermbrace{prior}{p(\+\mu)}\explaintermbrace{likelihood}{p(\+x \cond \+\mu, \+\Sigma)} \\
  &= \exp \bigg\{ - \half \+\mu^T \bigg( \explaintermbrace{posterior precision}{\+V_0^{-1} + n  \+\Sigma^{-1}}\bigg)  \+\mu + \+\mu^T \bigg( \explaintermbrace{posterior precision-weighted mean}{\+V_0 \+m_0 + \+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
 \end{align*}
-which reveals that the posterior is normal,  along with the particular form of its parameter  (covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$). 
+which reveals that the posterior is normal,  along with the particular form of its parameters  %(covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$). 
 
 \end{frame}
 
@@ -319,17 +321,36 @@ The complete conditions under natural parametrization
 \begin{align*}
 \+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
 \intertext{where}
-\explaintermbrace{posterior precision}{\+V^{-1}} &= \explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{N \+\Sigma^{-1}}  \\
-\explaintermbrace{posterior precision-weighted mean}{\+V^{-1} \+m}  &=  \explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{N \+\Sigma^{-1}  \bar{\+x}}  
+\explaintermbrace{posterior precision}{\+V^{-1}} &= \explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{n \+\Sigma^{-1}}  \\
+\explaintermbrace{posterior precision-weighted mean}{\+V^{-1} \+m}  &=  \explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{n \+\Sigma^{-1}  \bar{\+x}}  
 \intertext{and}
 \+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
 %\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
 \intertext{where}
-\explaintermbrace{posterior sample size}{\nu} &=  \explaintermbrace{prior sample size}{\nu_0} + \explaintermbrace{sample size}{N} \\
-\explaintermbrace{posterior RSS}{\+\Psi} &= \explaintermbrace{prior RSS}{\Psi_0} + \explaintermbrace{data RSS}{\ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T}
+\explaintermbrace{posterior sample size}{\nu} &=  \explaintermbrace{prior sample size}{\nu_0} + \explaintermbrace{sample size}{n} \\
+\explaintermbrace{posterior RSS}{\+\Psi} &= \explaintermbrace{prior RSS}{\Psi_0} + \explaintermbrace{data RSS}{\ds\sum_{i=1}^n  (\+x_i - \+\mu) (\+x_i - \+\mu)^T}
 %\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
 \end{align*}
 \bottomtext{\hfill Note: RSS = Residual Sum of Squares}
+\end{frame}
+
+\begin{frame}{Gibbs Sampler {\scriptsize (in standard parametrization)}}
+	
+We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
+\footnotesize 
+\begin{align*}
+\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
+\intertext{where}
+\+V &= \bp{\explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{n \+\Sigma^{-1}} }^{-1} \\
+\+m  &=  \+V  \bp{\explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{n \+\Sigma^{-1}  \bar{\+x}} } 
+\intertext{and}
+\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
+%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
+\intertext{where}
+\nu &=  \nu_0 + n \\
+\+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
+%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
+\end{align*}
 \end{frame}
 
 
@@ -343,24 +364,7 @@ These complete conditionals have nice interpretations:
 \end{frame}
 
 
-\begin{frame}{Gibbs Sampler {\scriptsize (in standard parametrization)}}
-	
-We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
-\footnotesize 
-\begin{align*}
-\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
-\intertext{where}
-\+V &= \bp{\explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{N \+\Sigma^{-1}} }^{-1} \\
-\+m  &=  \+V  \bp{\explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{N \+\Sigma^{-1}  \bar{\+x}} } 
-\intertext{and}
-\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
-%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
-\intertext{where}
-\nu &=  \nu_0 + N \\
-\+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
-%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
-\end{align*}
-\end{frame}
+
 
 	
 	
