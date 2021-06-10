@@ -9,5 +9,6 @@
 *.toc
 *.DS_Store
 *.gz
+*.texpadtmp
 
 future
