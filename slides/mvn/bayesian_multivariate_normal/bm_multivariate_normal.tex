@@ -207,7 +207,7 @@ See powerpoint slides.
 \begin{block}{Semi-conjugate Bayesian MVN}
 Consider the following model with a normal sampling distribution and \textit{semi-conjugate} prior 
 \begin{align*}
-\+\mu &\sim \N_{d}(\+\mu_0,\+\Sigma_0 ) \\
+\+\mu &\sim \N_{d}(\+m_0,\+V_0 ) \\
 \+\Sigma &\sim \InverseWishart(\nu_0,  \+\Psi_0) \\
 \+x_i \cond \+\mu,  \+\Sigma &\iid \N_{d}( \+\mu , \+\Sigma), \quad i=1,...,N
 \end{align*}
@@ -289,7 +289,7 @@ Semi-conjugate (sometimes called conditionally-conjugate) models can be defined 
 
 \scriptsize We use the exponential family representation of the MVN  to represent the prior in terms of its natural parameters
 \begin{align*}
-	p(\+\mu) &\propto \exp \bigg\{ -\half \+\mu^T \+\Sigma_0^{-1} \+\mu + \+\mu^T \+\Sigma_0^{-1} \+\mu_0 \bigg\} 
+	p(\+\mu) &\propto \exp \bigg\{ -\half \+\mu^T \+V_0^{-1} \+\mu + \+\mu^T \+V_0^{-1} \+m_0 \bigg\} 
 \labelit \label{eqn:prior_for_mvn_fixed_cov}
 \end{align*}
 
@@ -305,7 +305,7 @@ And similarly, we write the likelihood $	L(\+\mu) = p(\+y \cond \+\mu) = \prod_{
 By Bayes' law, and combining like terms,
 \begin{align*}
  p(\+\mu \cond \+x, \+\Sigma) &\propto \explaintermbrace{prior}{p(\+\mu)}\explaintermbrace{likelihood}{p(\+x \cond \+\mu, \+\Sigma)} \\
- &= \exp \bigg\{ - \half \+\mu^T \bigg( \explaintermbrace{$:=\+A$}{\+\Sigma_0^{-1} + n  \+\Sigma^{-1}}\bigg)  \+\mu + \+\mu^T \bigg( \explaintermbrace{$:=\+b$}{\+\Sigma_0 \+\mu_0 + \+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
+ &= \exp \bigg\{ - \half \+\mu^T \bigg( \explaintermbrace{$:=\+A$}{\+V_0^{-1} + n  \+\Sigma^{-1}}\bigg)  \+\mu + \+\mu^T \bigg( \explaintermbrace{$:=\+b$}{\+V_0 \+m_0 + \+\Sigma^{-1} n \bar{\+x}} \bigg) \bigg\} 
 \end{align*}
 which reveals that the posterior is normal,  along with the particular form of its parameter  (covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$). 
 
@@ -329,6 +329,26 @@ We sample from the posterior by iteratively sampling from the \textit{complete c
 \+\Psi &= \Psi_0 + \ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T 
 %\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
 \end{align*}
+\end{frame}
+
+\begin{frame}{Complete conditionals for the Bayesian MVN}
+	
+We sample from the posterior by iteratively sampling from the \textit{complete conditionals}:
+\footnotesize 
+\begin{align*}
+\+\mu  \cond \+\Sigma, \+x &\sim \N_{d}(\+m,\+V ) \\ %\labelit\label{eqn:normal_model_complete_conditional_on_mu} \\
+\intertext{where}
+\explaintermbrace{posterior precision}{\+V^{-1}} &= \explaintermbrace{prior precision}{\+V_0^{-1}} +  \explaintermbrace{data precision}{N \+\Sigma^{-1}}  \\
+\explaintermbrace{posterior precision-weighted mean}{\+V^{-1} \+m}  &=  \explaintermbrace{prior precision-weighted mean}{\+V_0^{-1} \+m_0} + \explaintermbrace{data precision-weighted mean}{N \+\Sigma^{-1}  \bar{\+x}}  
+\intertext{and}
+\+\Sigma \cond \+\mu,  \+x  &\sim \InverseWishart(\nu,  \+\Psi) \\
+%\labelit \label{eqn:normal_model_complete_conditional_on_Sigma} \\
+\intertext{where}
+\explaintermbrace{posterior sample size}{\nu} &=  \explaintermbrace{prior sample size}{\nu_0} + \explaintermbrace{sample size}{N} \\
+\explaintermbrace{posterior RSS}{\+\Psi} &= \explaintermbrace{prior RSS}{\Psi_0} + \explaintermbrace{data RSS}{\ds\sum_{i=1}^N  (\+x_i - \+\mu) (\+x_i - \+\mu)^T}
+%\labelit \label{eqn:Sigma_cc_normal_model_cond_conj_prior}\\ 
+\end{align*}
+\bottomtext{\hfill Note: RSS = Residual Sum of Squares}
 \end{frame}
 
 
