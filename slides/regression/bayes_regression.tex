@@ -11,6 +11,9 @@
 %\usepackage{enumitem}% http://ctan.org/pkg/enumitem 
 \usepackage{paralist}
 
+%%% DOCUMENT SPECIFIC STUFF
+\newcommand{\betaML}{\wh{\+\beta}_{\text{ML}}}
+
 \title{Bayesian Linear Regression}
 
 \begin{document}
@@ -210,21 +213,53 @@ y_{i} \cond \+\beta, \sigma^2 &\iid \N(\+x_{i}^T \+\beta, \sigma^2) \\
 %%%%%%%%%%%%%%%%%%%%%
 \section{Inference}
 
-\begin{frame}{Gibbs sampler}
+\begin{frame}{Goal}
+We investigate the complete conditionals for this model.   
+\vfill 
+Not only is this useful for inference (Gibbs sampler), but we will also find that the complete conditionals
+\begin{itemize}
+\item Provide intuition about the posterior
+\item Help guide good choices for setting the prior
+\end{itemize}
+	
+\end{frame}
 
-The model is conditionally conjugate.   The complete conditionals are
+
+\begin{frame}{Complete conditional for $\+\beta$}
+First,  we consider the likelihood $L(\+\beta) := p(\+y \cond \+\beta,  \sigma^2$),  dropping terms proportional to  $\+\beta$.
 \begin{align*}
-\+\beta \cond \+y,  \sigma^2 & \sim \N(\+\mu,  \+\Sigma )
+L(\+\beta) & \propto  \exp \bigg\{  -\df{1}{2 \sigma^2}  (\+y - \+X \+\beta)^T (\+y - \+X \+\beta) \bigg\} \\ 
+&=   \exp \bigg\{  -\df{1}{2 \sigma^2}  (- 2 \+\beta^T \+X^T \+y + \+\beta^T \+X^T \+X \+\beta) \bigg\} 
+\end{align*}
+\pause 
+Doing the same for the prior $p(\+\beta)$,  we have 
+\begin{align*}
+p(\+\beta) & \propto  \exp \bigg\{  -\df{1}{2}  (- 2 \+\beta^T \+\Sigma_0 \+\mu_0 + \+\beta^T \+\Sigma_0^{-1} \+\beta) \bigg\}  
+\end{align*}
+\pause 
+Thus,  by Bayes rule
+\begin{align*}
+p(\+\beta \cond  \+y ,  \sigma^2 ) & \propto  p(\+y \cond \+\beta,  \sigma^2) \times p(\+\beta)  \\
+& \propto  \exp \bigg\{   \+\beta^T \explaintermbrace{$:=\+b$}{\bigg(\+\Sigma_0^{-1} \+\mu_0 +  \frac{1}{\sigma^2}\+X^T \+y \bigg)} - \half \+\beta^T   \explaintermbrace{$:=\+A$}{\bigg(\+\Sigma_0^{-1}  +  \frac{1}{\sigma^2} \+X^T \+X \bigg)}  \+\beta \bigg\}
+\end{align*}
+which reveals that the posterior is normal,  along with the particular form of its parameters  ( $\+A$ is the precision and $\+b$ the precision-weighted mean). 
+
+\end{frame}
+
+\begin{frame}{Relation to maximum likelihood}
+Now recall
+\begin{align*}
+\betaML &= (\+X^T \+X)^{-1} \+X^T \+y \\
+\Var(\betaML) &= \sigma^2 (\+X^T \+X)^{-1}  
+\end{align*}
+\pause 
+So the last slide says
+\begin{align*}
+\+\beta \cond \+y,  \sigma^2 & \sim \N(\wt{\+\mu},  \wt{\+\Sigma} )
 \labelit \label{eqn:posterior_bayesian_lin_regression_with_known_obs_var}
 \intertext{where}
-\+\Sigma &= \bp{\+\Sigma_0^{-1} +  \frac{1}{\sigma^2} \+X^T \+X }^{-1}  \\
-\+\mu &= \+\Sigma \bp{   \+\Sigma_0^{-1} \+\mu_0 +  \frac{1}{\sigma^2} \+X^T  \+y} 
-\intertext{and}
-\sigma^2 \cond \+y,    \+\beta  & \sim \InverseGamma \bigg(\frac{\nu_0 + n }{2},  \frac{\nu_0 \sigma^2_0  + \text{SSR}(\+\beta)}{2} \bigg)  
-\labelit \label{eqn:posterior_bayesian_lin_regression_with_known_weights}
-\intertext{where}
-\text{SSR}(\+\beta)  &= (\+y - \+X \+\beta)^T  (\+y - \+X \+\beta) 
-\intertext{is the sum of squared residuals.}
+\explaintermbrace{posterior precision}{\wt{\+\Sigma}^{-1}} &= \explaintermbrace{prior precision}{\+\Sigma_0^{-1}} +  \explaintermbrace{``data" precision,  \; $\Var(\betaML)^{-1}$}{\frac{1}{\sigma^2} \+X^T \+X}   \\
+\explaintermbrace{posterior precision-weighted mean}{\wt{\+\Sigma}^{-1} \wt{\+\mu}} &= \explaintermbrace{prior precision-weighted mean}{\+\Sigma_0^{-1} \+\mu_0} +  \explaintermbrace{``data" pwm\; $\Var(\betaML)^{-1} \betaML$}{\frac{1}{\sigma^2} \+X^T  \+y}
 \end{align*}
 
 \end{frame}
@@ -238,35 +273,44 @@ Suppose the observation noise $\sigma^2$ is known.   Then \eqref{eqn:posterior_b
 \item When the prior on the regression coefficients $\+\beta$ is diffuse,  the elements of the prior precision matrix $\+\Sigma_0^{-1}$ will be small,  and so the posterior mean satisfies
 \[ \+\mu \approx ( \+X^T \+X)^{-1} \+X^T \+y = \widehat{\+\beta}_{\text{ML}} \]  i.e.  it approximately equals the standard least squares estimate.   
 
-\item On the other hand,   when the observation variance $\sigma^2$ is large,  then the measurement precision is small, and the posterior mean satisfies 
+\item On the other hand, when the ML estimate is highly variable  {\tiny(e.g., the observation variance $\sigma^2$ is large)},  then the measurement precision is small, and the posterior mean satisfies 
 \[ \+\mu \approx \+\mu_0 \]  
 i.e.  it approximately equals the prior mean.
 \end{itemize}
-\bottomtext{So the posterior mean is a tradeoff between the maximum likelihood estimate and the prior, with weights governed by prior variance vs. data variance}
+\vfill 
+\pause 
+\metroset{block=fill}
+\begin{block}{Take Home}
+\pause \scriptsize{With known noise, the posterior mean is a tradeoff between the maximum likelihood estimate and the prior expectation, with weights governed by prior variance vs.  variance in the ML estimate.}	
+\end{block}
+\pause \bottomtext{\hfill This will come up again when we try to set good priors.}
+
+%\pause \scriptsize{ \alert{Take Home?}} \pause \scriptsize{The posterior mean is a tradeoff between the maximum likelihood estimate and the prior, with weights governed by prior variance vs. data variance}
 % TODO: Need to account for number of observations
 \end{frame}
 
 
-\begin{frame}{Proof (complete conditional for $\+\beta$)}
-\scriptsize
-First,  we consider the likelihood $L(\+\beta) := p(\+y \cond \+\beta,  \sigma^2$),  dropping terms proportional to  $\+\beta$.
+\begin{frame}{Gibbs sampler}
+
+The model is conditionally conjugate.   The complete conditionals are
 \begin{align*}
-p(\+y \cond \+\beta,  \sigma^2) & \propto  \exp \bigg\{  -\df{1}{2 \sigma^2}  (\+y - \+X \+\beta)^T (\+y - \+X \+\beta) \bigg\} \\ 
-&=   \exp \bigg\{  -\df{1}{2 \sigma^2}  (- 2 \+\beta^T \+X^T \+y + \+\beta^T \+X^T \+X \+\beta) \bigg\} \\ 
+\+\beta \cond \+y,  \sigma^2 & \sim \N(\+\mu,  \+\Sigma ) 
+\intertext{where}
+\+\Sigma &= \bp{\+\Sigma_0^{-1} +  \frac{1}{\sigma^2} \+X^T \+X }^{-1}  \\
+\+\mu &= \+\Sigma \bp{   \+\Sigma_0^{-1} \+\mu_0 +  \frac{1}{\sigma^2} \+X^T  \+y} 
+\intertext{and}
+\sigma^2 \cond \+y,    \+\beta  & \sim \InverseGamma \bigg(\frac{\nu_0 + n }{2},  \frac{\nu_0 \sigma^2_0  + \text{SSR}(\+\beta)}{2} \bigg)  
+\labelit \label{eqn:posterior_bayesian_lin_regression_with_known_weights}
+\intertext{where}
+\text{SSR}(\+\beta)  &= (\+y - \+X \+\beta)^T  (\+y - \+X \+\beta) 
+\intertext{is the sum of squared residuals.}
 \end{align*}
-\pause 
-Doing the same for the prior $p(\+\beta)$,  we have 
-\begin{align*}
-p(\+\beta) & \propto  \exp \bigg\{  -\df{1}{2}  (- 2 \+\beta^T \+\Sigma_0 \+\mu_0 + \+\beta^T \+\Sigma_0^{-1} \+\beta) \bigg\} \\ 
-\end{align*}
-Thus,  by Bayes rule
-\begin{align*}
-p(\+\beta \cond  \+y ,  \sigma^2 ) & \propto  p(\+y \cond \+\beta,  \sigma^2) \times p(\+\beta)  \\
-& \propto  \exp \bigg\{   \+\beta^T \explaintermbrace{$:=\+b$}{\bigg(\+\Sigma_0^{-1} \+\mu_0 +  \frac{1}{\sigma^2}\+X^T \+y \bigg)} - \half \+\beta^T   \explaintermbrace{$:=\+A$}{\bigg(\+\Sigma_0^{-1}  +  \frac{1}{\sigma^2} \+X^T \+X \bigg)}  \+\beta \bigg\}
-\end{align*}
-which reveals that the posterior is normal,  along with the particular form of its parameter  (covariance $\+A^{-1}$ and mean $\+A^{-1} \+b$). 
 
 \end{frame}
+
+
+
+
 
 
 %%%%%%%%%%
