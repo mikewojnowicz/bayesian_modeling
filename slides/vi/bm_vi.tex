@@ -8,6 +8,7 @@
 % CREATE DIFFERENT VERSIONS DEPENDING ON THE AUDIENCE
 % Reference: https://tex.stackexchange.com/questions/290102/how-do-i-skip-slides-in-beamer
 % See the `\justfor` command
+% Audience choices here: {long, short}
 \usepackage[
     audience=short
     ]{beameraudience}
@@ -61,25 +62,39 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Some questions}
+\justfor{long}{%
+	\begin{frame}{Some questions}
+
+	\begin{itemize}
+	\item What is variational inference?
+	\item When is it useful?
+	
+	\item Is it the same as variational bayes?
+	
+	\item Why is it called \textit{variational} inference?
+	
+	\item What is Variational Expectation Maximization (VEM)?  Variational Bayes Expectation Maximization (VBEM)?
+	
+	\item How can we apply VI to inference problems?
+	\end{itemize}
+	\end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\justfor{short}{%
+	\begin{frame}{Some questions}
+
+	\begin{itemize}
+	\item What is variational inference?
+	\item When is it useful?
+	\item How can we apply VI to inference problems?
+	\item What is \textit{automatic} differentiation variational inference (ADVI)?
+	\end{itemize}
+	\end{frame}
+}
 
 
-\begin{itemize}
-\item What is variational inference?
-\item When is it useful?
 
-\item Is it the same as variational bayes?
-
-\item Why is it called \textit{variational} inference?
-
-\item What is Variational Expectation Maximization (VEM)?  Variational Bayes Expectation Maximization (VBEM)?
-
-\item How can we apply VI to inference problems?
-\end{itemize}
-
-
-
-\end{frame}
 
 
 
