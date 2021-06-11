@@ -374,7 +374,7 @@ This condition is met if
 \item Set $\+\Sigma_0^{-1} = k (\+X^T\+X)^{-1}$ for some $k$.
 \end{itemize}
 
-This prior specifies $k$ in terms of the error variance, $k=g \sigma^2$ for some $g$.  There are different methods for setting $g$, although Michael Jordan recommends putting a prior $g \sim \IG(\half, \frac{n}{2})$.
+The g-prior specifies $k$ in terms of the error variance, $k=g \sigma^2$ for some $g$.  Michael Jordan recommends setting $p(\sigma^2) \propto \frac{1}{\sigma^2}$ and $g \sim \IG(\half, \frac{n}{2})$ to avoid statistical paradoxes.
 \end{sblock}
 
 \end{frame}
