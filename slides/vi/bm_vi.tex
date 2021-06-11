@@ -2150,17 +2150,15 @@ So in the new space, the ELBO becomes
 \greencheck Model-independent variational factors. \\
 \column{.44\textwidth}
 \small
-\redx Cannot compute the gradient of the cost function \\
-\end{columns}
-	 	
-		
+\redx Cannot compute the gradient of the cost function \pause {\tiny (Think: Why can't we just approximate the term by sampling?)} \\
+\end{columns}	
 \end{frame}
 %SAY: The problem is, we still can't optimize this function, because the expectation is, in general, intractable. 
 
 
 \begin{frame}{Step 2: The reparameterization trick}
 	
-We \textit{re-parameterize} the Gaussian $\+\zeta \sim \mathcal{N}(\+\mu, \+\Sigma)$, such that its dependence on the original parameter $\+\lambda = (\+\mu, \+\Sigma)$ is transferred to a (deterministic) standardization function, $S_\+\lambda$ 
+\textbf{Example}: We can \textit{re-parameterize} the Gaussian $\+\zeta \sim \mathcal{N}(\+\mu, \+\Sigma)$, such that its dependence on the original parameter $\+\lambda = (\+\mu, \+\Sigma)$ is transferred to a (deterministic) standardization function, $S_\+\lambda$ 
 %\footnote{assumed continuously differentiable and invertible}, $S_\+\lambda$ 
 
 \begin{itemize}
