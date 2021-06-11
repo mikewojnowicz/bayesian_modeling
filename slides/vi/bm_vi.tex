@@ -7,6 +7,7 @@
 
 % CREATE DIFFERENT VERSIONS DEPENDING ON THE AUDIENCE
 % Reference: https://tex.stackexchange.com/questions/290102/how-do-i-skip-slides-in-beamer
+% See the `\justfor` command
 \usepackage[
     audience=short
     ]{beameraudience}
@@ -1062,70 +1063,23 @@ The derivation uses variational calculus, and is nearly syntactically identical 
 
 
 \section{Example: Bayesian Mixture Model}
-\begin{frame}{Example: Bayesian Gaussian Mixture Model}
 
-To see the mean field CAVI algorithm \eqref{mfcavi_update} in a concrete context, consider a version of the Bayesian Gaussian Mixture Model.  
-\begin{align*}
-\mu_k & \sim \text{Normal}(M_k = 0, V_k = \sigma^2) && k = 1,..., K\\
-c_i & \sim \text{Categorical}(\pi_1, ..., \pi_K) && i=1, ... ,n \\
-x_i \cond c_i, \mu & \sim \text{Normal}(\mu_{c_i}, 1) && i = 1,..., n
-\end{align*}
-\tiny (The model is simple in that it assumes univariate observations and that each mixture component has unit variance.) \normalsize 
 
-The joint density, by chain rule, is
-\[ p(x,c,\mu) = p(\mu) \ds\prod_{i=1}^n p(c_i) p(x_i \cond c_i, \mu) \]
+\subsection{Why variational Bayesian mixture models?} 
 
-And a mean-field variational family is given by 
-\[  q(c, \mu) = \ds\prod_{k=1}^K q(\mu_k) \ds\prod_{i=1}^n q(c_i) \]
+\begin{frame}{Why variational Bayesian mixture models?}
 
-\end{frame}
-
-\begin{frame}{Example: Bayesian Gaussian Mixture Model}
-We apply \eqref{mfcavi_update} to determine the coordinate updates for $q_{c_i}$, the variational factors governing cluster assignments.   %We take the log of the joint density and utilize proportionality to obtain
-
-\begin{align*}
-q(c_{ik}) & \propto \exp \bigg\{ \E_{q_{\mu_k}} \bigg[  \log p(c_i =k) + \log p(x_i \cond c_i=k, \mu) \bigg] \bigg\} \\
-& \propto \exp \bigg\{ \E_{q_{\mu_k}} \bigg[ \log \pi_k + x_i \mu_k - \df{1}{2} \mu_k^2 \bigg] \bigg\} \\
-& \propto \pi_k \exp \bigg\{ x_i \E_{q_{\mu_k}} [\mu_k] - \df{1}{2}  \E_{q_{\mu_k}} [ \mu_k^2] \bigg\} \\
-\end{align*}
-
-The coordinate updates for $q_{\mu_k}$ are derived similarly.  They reveal that $q_{\mu_k}$ are Gaussian, and hence the above expectations are easy to compute. 
-
+\metroset{block=fill}
+\begin{block}{Why Bayes?}
+All the usual reasons -- exploit prior knowledge,  protect against overfitting via Bayesian model averaging, can use the evidence (or ELBO) for model selection, etc.
+\end{block}
 \vfill
-\tiny
-\alert{Note:} We abuse notation, and write $q(c_{ik})$ as shorthand for $q(c_i =k)$
+\begin{block}{Why Variational Bayes?}
+Traditional MCMC becomes very burdensome for these types of models {\tiny (mixture models, hidden mixture models, etc.)} due to the multimodality in the posterior and the label switching. 
+\bottomtext{\hfill See: A comparison of variational approximations for fast inference in mixed logit models}
+\end{block}	
 \end{frame}
 
-\begin{frame}{Bayesian Gaussian Mixture Model: \\ Updates to mixture component means}
-Using the same strategy as when updating cluster assignments $c_i$, we obtain
-
-\begin{align*}
-q(\mu_k) & \propto \exp \bigg\{ \E_{-q_{\mu_k}} \bigg[  \log p(\mu_k) + \ds\sum_{i=1}^n \log p(x_i \cond c_i=k, \mu) \bigg] \bigg\} \\
-& \propto \exp \bigg\{ -\df{1}{2  \sigma^2} \mu_k^2 +  \ds\sum_{i=1}^{n} \E_{q_c} \bigg[ \+1_{c_i=k}\, \bigg(x_i \mu_k - \df{1}{2} \mu_k^2\bigg) \bigg] \bigg\} \\
-& \propto \exp \bigg\{  \bigg( \ds\sum_{i=1}^n q(c_{ik})x_i  \bigg) \mu_k   \; +  \; -\df{1}{2} \bigg(\df{1}{ \sigma^2} + \ds\sum_{i=1}^n q(c_{ik}) \bigg) \mu_k^2 \bigg\} \\
-\end{align*}
-
-
- 
-which is an exponential family distribution with sufficient statistics $(\mu_k, \mu_k^2)$  and base measure $\propto 1$; hence it is Gaussian. 
-
-\end{frame}
-
-\begin{frame}{Bayesian Gaussian Mixture Model: \\ Updates to mixture component means}
-
-It is easy to show\footnote{\tiny Indeed, in this course we have seen} that for a Gaussian with mean $M$ and variance $V$, the natural parameters are given by
- \[\eta_1 = \df{M}{V}, \quad \eta_2 = -\df{1}{2V} \]
- 
-From the last slide, the variational density $q(\mu_k)$ has natural parameters
-\[ \eta_1 = \bigg( \ds\sum_{i=1}^n q(c_{ik})x_i  \bigg) , \quad \eta_2 = -\df{1}{2} \bigg(\df{1}{ \sigma^2} + \ds\sum_{i=1}^n q(c_{ik}) \bigg) \]
-
-
- 
-   Using this, we can backsolve to determine the updates to the mean and variance of the Gaussian variational density governing the kth cluster mean:
-\[ M_k = \df{\sum_{i=1}^n q(c_{ik}) x_i}{1/\sigma^2 + \sum_{i=1}^n q(c_{ik})}, \quad V_k= \df{1}{1/\sigma^2 +\sum_{i=1}^n q(c_{ik})}\]
-\end{frame}
-
-\subsection{Why \textit{Bayesian} mixture models?} 
 \begin{frame}{VB Predictive vs. ML Solution}
 
 \begin{center}
@@ -1161,6 +1115,70 @@ The model automatically adapts its number of components.
 
 \end{frame}
 
+
+\subsection{Inference algorithm}
+\begin{frame}{Example: Bayesian Gaussian Mixture Model}
+
+To see the mean field CAVI algorithm \eqref{mfcavi_update} in a concrete context, consider a version of the Bayesian Gaussian Mixture Model.  
+\begin{align*}
+\mu_k & \sim \text{Normal}(M_k = 0, V_k = \sigma^2) && k = 1,..., K\\
+c_i & \sim \text{Categorical}(\pi_1, ..., \pi_K) && i=1, ... ,n \\
+x_i \cond c_i, \mu & \sim \text{Normal}(\mu_{c_i}, 1) && i = 1,..., n
+\end{align*}
+\tiny (The model is simple in that it assumes univariate observations and that each mixture component has unit variance.) \normalsize 
+
+The joint density, by chain rule, is
+\[ p(x,c,\mu) = p(\mu) \ds\prod_{i=1}^n p(c_i) p(x_i \cond c_i, \mu) \]
+
+And a mean-field variational family is given by 
+\[  q(c, \mu) = \ds\prod_{k=1}^K q(\mu_k) \ds\prod_{i=1}^n q(c_i) \]
+
+\end{frame}
+
+\begin{frame}{Example: Bayesian Gaussian Mixture Model}
+We apply \eqref{mfcavi_update} to determine the coordinate updates for $q_{c_i}$, the variational factors governing cluster assignments.   %We take the log of the joint density and utilize proportionality to obtain
+
+\begin{align*}
+q(c_{ik}) & \propto \exp \bigg\{ \E_{q_{\mu_k}} \bigg[  \log p(c_i =k) + \log p(x_i \cond c_i=k, \mu) \bigg] \bigg\} \\
+& \propto \exp \bigg\{ \E_{q_{\mu_k}} \bigg[ \log \pi_k + x_i \mu_k - \df{1}{2} \mu_k^2 \bigg] \bigg\} \\
+& \propto \pi_k \exp \bigg\{ x_i \E_{q_{\mu_k}} [\mu_k] - \df{1}{2}  \E_{q_{\mu_k}} [ \mu_k^2] \bigg\} \\
+\end{align*}
+
+The next slide reveals that the $q_{\mu_k}$ are Gaussian, and hence the above expectations are easy to compute. 
+
+\vfill
+\tiny
+\alert{Note:} We abuse notation, and write $q(c_{ik})$ as shorthand for $q(c_i =k)$
+\end{frame}
+
+\begin{frame}{Bayesian Gaussian Mixture Model: \\ Updates to mixture component means}
+Using the same strategy as when updating cluster assignments $c_i$, we obtain
+
+\begin{align*}
+q(\mu_k) & \propto \exp \bigg\{ \E_{-q_{\mu_k}} \bigg[  \log p(\mu_k) + \ds\sum_{i=1}^n \log p(x_i \cond c_i=k, \mu) \bigg] \bigg\} \\
+& \propto \exp \bigg\{ -\df{1}{2  \sigma^2} \mu_k^2 +  \ds\sum_{i=1}^{n} \E_{q_c} \bigg[ \+1_{c_i=k}\, \bigg(x_i \mu_k - \df{1}{2} \mu_k^2\bigg) \bigg] \bigg\} \\
+& \propto \exp \bigg\{  \bigg( \ds\sum_{i=1}^n q(c_{ik})x_i  \bigg) \mu_k   \; +  \; -\df{1}{2} \bigg(\df{1}{ \sigma^2} + \ds\sum_{i=1}^n q(c_{ik}) \bigg) \mu_k^2 \bigg\} \\
+\end{align*}
+
+
+ 
+which is an exponential family distribution with sufficient statistics $(\mu_k, \mu_k^2)$  and base measure $\propto 1$; hence it is Gaussian. 
+
+\end{frame}
+
+\begin{frame}{Bayesian Gaussian Mixture Model: \\ Updates to mixture component means}
+
+It is easy to show\footnote{\tiny Indeed, in this course we have seen} that for a Gaussian with mean $M$ and variance $V$, the natural parameters are given by
+ \[\eta_1 = \df{M}{V}, \quad \eta_2 = -\df{1}{2V} \]
+ 
+From the last slide, the variational density $q(\mu_k)$ has natural parameters
+\[ \eta_1 = \bigg( \ds\sum_{i=1}^n q(c_{ik})x_i  \bigg) , \quad \eta_2 = -\df{1}{2} \bigg(\df{1}{ \sigma^2} + \ds\sum_{i=1}^n q(c_{ik}) \bigg) \]
+
+
+ 
+   Using this, we can backsolve to determine the updates to the mean and variance of the Gaussian variational density governing the kth cluster mean:
+\[ M_k = \df{\sum_{i=1}^n q(c_{ik}) x_i}{1/\sigma^2 + \sum_{i=1}^n q(c_{ik})}, \quad V_k= \df{1}{1/\sigma^2 +\sum_{i=1}^n q(c_{ik})}\]
+\end{frame}
 
 \justfor{long}{
 	\section{Tool: CAVI with Exponential Family Complete Conditionals}
