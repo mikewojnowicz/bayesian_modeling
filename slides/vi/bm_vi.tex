@@ -103,6 +103,31 @@
 %TO SAY:  (1) orientation -- what is VI, freq or bayes, why "variatational", how related to EM, blockers for classical approaches, etc... (2) still used (2a) duvenaud -- efficient subroutines; leverage conjugate exponential family structure, enabling second-order optimization where possible, use backprop for everything else, (2b) max welling -- taylor series approach. 
 
 
+\begin{frame}{Illustration}
+
+ \begin{minipage}[t][.9\textheight]{\textwidth}
+  
+Here we approximate an probability distribution by finding the best approximation from tractable family $\Q = \{ \text{10-component Gaussian mixture models} \}$ 
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\centering
+\includegraphics[width=.7\textwidth]{images/intro_animation_1.png}\\
+\includegraphics[width=.7\textwidth]{images/intro_animation_2.png}
+\column{.5\textwidth}
+\centering
+\includegraphics[width=.7\textwidth]{images/intro_animation_3.png}\\
+\includegraphics[width=.7\textwidth]{images/intro_animation_4.png}
+\end{columns}
+
+\vfill
+
+\tiny Ranganath, R., Gerrish, S., \& Blei, D. (2014, April). Black box variational inference. In Artificial Intelligence and Statistics (pp. 814-822).
+  \end{minipage}
+  
+\end{frame}
+
+
 \subsection{The problem: marginalization}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
