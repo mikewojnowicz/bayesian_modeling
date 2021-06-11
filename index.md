@@ -40,6 +40,7 @@ Why have a lab as a part of the course, as opposed to just working on your own t
 
 * [Intro to Bayesian Inference](https://colab.research.google.com/drive/1urZf1Aqnk5J8hBrJTYDkswZ9Q5_8gFC_) and [Solutions](https://colab.research.google.com/drive/1caHDfbpYrA3S6NsZsSpQ_5cGsam6LORZ?usp=sharing) 
 * [Sampling and MCMC Methods](https://colab.research.google.com/drive/1SGXi4w6_gPioqcgyMXhrBWLM78KyySHl?usp=sharing) and [Solutions](https://colab.research.google.com/drive/1WTkF8czAKct7SaGQudZK51mssT7TIkBg#scrollTo=QM0XZFza6bCT)
+* [PyMC3 Intro](https://colab.research.google.com/drive/19NXPWy0iXkI7VMIJISAWpcuthd2Lyj8S)
 * [Bayesian Multivariate Normal](https://colab.research.google.com/drive/14gonFUtSGcn8G3pApOEu-5YIaGk0swUQ#scrollTo=wsNeq0W17gDt)
 * More soon...
 
