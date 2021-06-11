@@ -107,7 +107,7 @@ complex models.
 \item Bayesian model selection works well here!  The true (cubic) model has the highest evidence.  The evidence is lower for models that are underfit (quadratic) or overfit (quartic).
 \item Posterior draws from the cubic model best match the true data generating process.
 \item Maximum likelihood doesn't do this.  ML says: the higher the order, the \textit{better} the fit. 
-\item The ranking of models by evidence matches what would be expected from the previous slide.
+%\item The ranking of models by evidence matches what would be expected from the previous slide.
 
 \end{itemize}
 }
@@ -327,26 +327,26 @@ For flexible nonlinear regressions, it is more common to use \textit{Gaussian pr
 	
 \end{frame}
 
-\begin{frame}{Prior specification}
-
-A common choice of prior is obtained by setting the hyperparameters as follows:
-
-\begin{sblock}{Prior on regression weights $\+\beta$}
-\begin{itemize}
-\item Standardize the covariates $\+x$.
-\item Set $\+\mu_0 =\+0, \+\Sigma_0 = \+I$.
-\end{itemize}
-\end{sblock}
-
-\begin{sblock}{Prior on observation noise $\sigma^2$}
-The hyperparameters $(\sigma_0^2,  \nu_0)$ can be interpreted as the sample variance and sample size of prior observations.
-
-\begin{itemize}
-\item Set $\nu_0=1$.
-\item Set $\sigma_0^2$ based on prior expectations.
-\end{itemize}
-\end{sblock}
-\end{frame}
+%\begin{frame}{Prior specification}
+%
+%A possibly reasonable prior can be obtained as follows:
+%
+%\begin{sblock}{Prior on regression weights $\+\beta$}
+%\begin{itemize}
+%\item Standardize the covariates $\+x$ and responses $\+y$. 
+%\item Set $\+\mu_0 =\+0, \+\Sigma_0 = \+I$.
+%\end{itemize}
+%\end{sblock}
+%
+%\begin{sblock}{Prior on observation noise $\sigma^2$}
+%The hyperparameters $(\sigma_0^2,  \nu_0)$ can be interpreted as the sample variance and sample size of prior observations.
+%
+%\begin{itemize}
+%\item Set $\nu_0=1$.
+%\item Set $\sigma_0^2$ based on prior expectations.
+%\end{itemize}
+%\end{sblock}
+%\end{frame}
 
 \begin{frame}{Weakly informative priors}
 
