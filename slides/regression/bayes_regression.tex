@@ -130,10 +130,10 @@ complex models.
 Y_i &= \beta_1 x_{i,1} + \beta_2 x_{i,2} + \beta_3 x_{i,3} + \beta_4 x_{i,4} + \epsilon_i, \; \text{where} \\
 x_{i,1} &=1 \; \text{ for each subject $i$} \\
 x_{i,2} &=0 \; \text{if subject $i$ is on the running program, 1 if on aerobic} \\
-x_{i,2} &= \text{age of subject $i$} \\
+x_{i,3} &= \text{age of subject $i$} \\
 x_{i,4} &= x_{i,2} \times x_{i,3}
 \end{align*}
-
+\pause 
 Under this model, the conditional expectations for $Y$ are:
 \begin{align*}
 \E[Y|\+x] &= \beta_1 + \beta_3 \times \text{age} \; \text{if $x_1 =0$, and} \\
@@ -323,7 +323,7 @@ Functions sampled from posterior
 \vfill 
 This behavior is generally undesirable. 
 \vfill 
-How to solve? \pause For flexible nonlinear regressions, it is more common to use \textit{Gaussian process} models. 
+For flexible nonlinear regressions, it is more common to use \textit{Gaussian process} models. 
 	
 \end{frame}
 
