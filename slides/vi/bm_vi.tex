@@ -86,7 +86,7 @@
 
 	\begin{itemize}
 	\item What is variational inference?
-	\item When is it useful?
+	\item When is it useful?  Can it even be useful to frequentists?
 	\item How can we apply VI to inference problems?
 	\item What is \textit{automatic} differentiation variational inference (ADVI)?
 	\end{itemize}
@@ -165,16 +165,15 @@ Frequentists take parameters $\+\theta$  to be fixed (but unknown) constants, wh
 Let us consider models that present an \bf{intractable marginal}.
  
 \metroset{block=fill}
-\begin{block}{Bayesian latent variable models}
-Examples: Bayesian Mixture Model, Bayesian Hidden Markov Model, Latent Dirichlet Allocation,  Bayesian nonparametric versions of the preceding
-\end{block}
-
-\metroset{block=fill}
 \begin{block}{Bayesian (non-latent variable) models}
-Examples: Non-conjugate models, Many hierarchical Bayesian models
+Example: Any model with a non-conjugate prior
 \end{block}
-
-
+\pause 
+\metroset{block=fill}
+\begin{block}{Bayesian latent variable models}
+Examples: Bayesian Mixture Model, Bayesian Hidden Markov Model, Latent Dirichlet Allocation,  %Bayesian nonparametric versions of the preceding
+\end{block}
+\pause 
 \metroset{block=fill}
 \begin{block}{Frequentist latent variable models}
 Examples:  Hidden Markov Models \tiny (although we have handled this case)  \normalsize , Variational Autoencoders \tiny (the classical kind) \normalsize, Bayesian Generalized Linear Mixed Effects Models
@@ -575,16 +574,17 @@ Model & Inferential & Intractable  &  Variational  & Posterior \\
 \hline \\ [.8ex] % inserts single horizontal line
 General case & \text{infer about} $\+\theta$ & $p(\+x \cond \+c)$& $q(\+u)$ & $p(\+u \cond \+x, \+c)$  \\ [.8ex]
 \hline \\ [.8ex] % inserts single horizontal line
-Frequentist  & $\argmax_{\+\theta} \alert{p(\+x \cond \+\theta)}$  & \alert{$p(\+x \cond \+\theta)$} = $\ds\int p(\+x, \+z \cond \+\theta) \wrt{\+z}$  & $q(\+z)$ & \blue{$p(\+z \cond \+x, \+\theta)$}  \\
-latent & & & & \\ [.8ex]
 Bayesian  & $\alert{p(\+\theta \cond \+x)}$ & $ \blue{p(\+x)} = \ds\int p(\+\theta,\+x) \wrt{\+\theta}$ & $q(\+\theta)$ &  \alert{$p(\+\theta \cond \+x)$} \\ 
 (non-latent) & & & & \\  [.8ex]
 Bayesian  & $\alert{p(\+z, \+\theta \cond \+x)}$ &  $\blue{p(\+x)} = \ds\int p(\+\theta,\+x, \+z) \wrt{\+\theta} \wrt{\+z}$  &  $q(\+z, \+\theta)$ & \alert{$p(\+z, \+\theta \cond \+x)$} \\
 latent & & & & \\  [.8ex]
+Frequentist  & $\argmax_{\+\theta} \alert{p(\+x \cond \+\theta)}$  & \alert{$p(\+x \cond \+\theta)$} = $\ds\int p(\+x, \+z \cond \+\theta) \wrt{\+z}$  & $q(\+z)$ & \blue{$p(\+z \cond \+x, \+\theta)$}  \\
+latent & & & & \\ [.8ex]
 \end{tabular}
 \label{vi_table} % is used to refer this table in the text
 \end{table}
- 
+\pause 
+\bottomtext{\hfill Note: \alert{Orange} denotes the primary target, \blue{Blue} denotes a helper.}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -592,6 +592,16 @@ latent & & & & \\  [.8ex]
 
 Given selection of variational family $\Q$, the optimal variational density $q^*$ ...
 
+\metroset{block=fill}
+\begin{block}{The posterior perspective}
+
+\begin{itemize}
+\item \textit{For Bayesian models}:  ...  is the family member which is closest to the\alert{ target  posterior $p(\+u \cond \+x)$}.
+\item \textit{For frequentist models}: ... provides the best substitution $q^*(\+z) \approx \blue{p(\+z\cond \+x, \+\theta^{\text{curr}})}$ into the E-step of the EM algorithm\footnote{See next section for more information.}
+\end{itemize}
+
+\end{block} 
+\pause 
 \metroset{block=fill}
 \begin{block}{The marginal perspective}
 
@@ -607,16 +617,6 @@ Given selection of variational family $\Q$, the optimal variational density $q^*
 
 \end{block} 
 
-
-\metroset{block=fill}
-\begin{block}{The posterior perspective}
-
-\begin{itemize}
-\item \textit{For Bayesian models}:  ...  is the family member which is closest to the\alert{ target  posterior $p(\+u \cond \+x)$}.
-\item \textit{For frequentist models}: ... provides the best substitution $q^*(\+z) \approx \blue{p(\+z\cond \+x, \+\theta^{\text{curr}})}$ into the E-step of the EM algorithm\footnote{See next section for more information.}
-\end{itemize}
-
-\end{block} 
 \end{frame}
 
 
