@@ -21,8 +21,7 @@ The goal of this workshop is to introduce students to the concepts and practice 
 * [Bayesian Linear Regression](slides/regression/bayes_regression.pdf)
 * [Hierarchical Bayesian Linear Regression](slides/hierarchical_regression/hierarchical_regression.pdf)
 * [Bayesian Deep Learning](slides/bayesian_deep_learning/A look at Bayesian Deep Learning.pdf)
-* [Variational Inference]
-(slides/slides/vi/bm_vi.pdf)
+* [Variational Inference](slides/vi/bm_vi.pdf)
 
 ## Exercises
 
