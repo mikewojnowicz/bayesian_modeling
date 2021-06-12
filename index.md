@@ -20,7 +20,9 @@ The goal of this workshop is to introduce students to the concepts and practice 
 * [Bayesian Multivariate Normal](slides/mvn/bayesian_multivariate_normal/bm_multivariate_normal.pdf)
 * [Bayesian Linear Regression](slides/regression/bayes_regression.pdf)
 * [Hierarchical Bayesian Linear Regression](slides/hierarchical_regression/hierarchical_regression.pdf)
-* More soon...
+* [Bayesian Deep Learning](slides/bayesian_deep_learning/A look at Bayesian Deep Learning.pdf)
+* [Variational Inference]
+(slides/slides/vi/bm_vi.pdf)
 
 ## Exercises
 
