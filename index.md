@@ -4,8 +4,8 @@ The goal of this workshop is to introduce students to the concepts and practice 
 
 ## Instructors
 
-* Dr. Michael Wojnowicz
-* Dr. Karin Knudson
+* Michael Wojnowicz
+* Karin Knudson
 * _Special Guest Presenter_: Kyle Heuton 
 
 ## Syllabus
