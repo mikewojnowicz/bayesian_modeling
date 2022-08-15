@@ -2,7 +2,7 @@
 
 %STANDARD PREAMBLE
 %https://tex.stackexchange.com/questions/68821/is-it-possible-to-create-a-latex-preamble-header
-\usepackage{/Users/mwojno01/Research/Learning/latex_preamble/beamer_preamble}
+\usepackage{/Users/mwojno01/Repos/latex_preamble/beamer_preamble}
 
 
 % CREATE DIFFERENT VERSIONS DEPENDING ON THE AUDIENCE
@@ -162,22 +162,23 @@ Frequentists take parameters $\+\theta$  to be fixed (but unknown) constants, wh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Three statistical modeling paradigms of interest}
 
-Let us consider models that present an \bf{intractable marginal}.
+Let us consider examples of models that present an \bf{intractable marginal}.
  
 \metroset{block=fill}
 \begin{block}{Bayesian (non-latent variable) models}
-Example: Any model with a non-conjugate prior
+Many Bayesian Generalized Linear Models (e.g. categorical regressions)
 \end{block}
 \pause 
 \metroset{block=fill}
 \begin{block}{Bayesian latent variable models}
-Examples: Bayesian Mixture Model, Bayesian Hidden Markov Model, Latent Dirichlet Allocation,  %Bayesian nonparametric versions of the preceding
+Bayesian Mixture Model, Bayesian Hidden Markov Models, Latent Dirichlet Allocation  %Bayesian nonparametric versions of the preceding
 \end{block}
 \pause 
 \metroset{block=fill}
 \begin{block}{Frequentist latent variable models}
-Examples:  Hidden Markov Models \tiny (although we have handled this case)  \normalsize , Variational Autoencoders \tiny (the classical kind) \normalsize, Bayesian Generalized Linear Mixed Effects Models
+Hidden Markov Models \tiny (although we have handled this case)  \normalsize , Variational Autoencoders \tiny (the classical kind) \normalsize, Generalized Linear Mixed Effects Models
 \end{block}
+\bottomtext{...And sometimes even if a conjugate prior exist, you may have reasons to \textit{choose} a non-conjugate prior.}
 \end{frame}
 
 
